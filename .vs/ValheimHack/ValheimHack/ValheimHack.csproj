@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>d09c8b31-c4e5-4246-bca9-8a965ac9c717</ProjectGuid>
+    <ProjectGuid>458eb4d4-b403-43d1-bdf2-4c6a038daa0e</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ValheimHack</RootNamespace>
