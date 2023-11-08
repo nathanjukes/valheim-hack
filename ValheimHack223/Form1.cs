@@ -118,7 +118,6 @@ namespace ValheimHack223
             // Loop through all instances and destroy them
             foreach (var s in ships)
             {
-               // GameObject.Destroy(s);
                 GameObject.DestroyImmediate(s.gameObject);
             }
 
@@ -128,6 +127,19 @@ namespace ValheimHack223
         private void button5_Click(object sender, EventArgs e)
         {
             Loader.Dispose();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            TreeBase[] trees = UnityEngine.Object.FindObjectsOfType(typeof(TreeBase)) as TreeBase[];
+
+            // Loop through all instances and destroy them
+            foreach (var s in trees)
+            {
+                GameObject.DestroyImmediate(s.gameObject);
+            }
+
+            MessageBox.Show("Num of trees: " + trees.Length);
         }
     }
 }
