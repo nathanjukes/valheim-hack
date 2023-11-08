@@ -24,23 +24,23 @@ namespace ValheimHack223
         {
             Player[] players = UnityEngine.Object.FindObjectsOfType(typeof(Player)) as Player[];
 /*            foreach (var p in players)
-            {
-                p.SetHealth(50f);
-                p.SetMaxStamina(100f, true);
-                p.Heal(50f, true);
-            }
-            foreach (var p in Player.GetAllPlayers())
-            {
-                p.SetHealth(50f);
-                p.SetMaxStamina(100f, true);
-                p.Heal(50f, true);
-                p.SetLevel(p.GetLevel() + 1);
-            }
-            foreach (var p in Player.GetAllCharacters())
-            {
-                p.SetHealth(50f);
-                p.AddStamina(10f);
-            }*/
+                        {
+                            p.SetHealth(50f);
+                            p.SetMaxStamina(100f, true);
+                            p.Heal(50f, true);
+                        }
+                        foreach (var p in Player.GetAllPlayers())
+                        {
+                            p.SetHealth(50f);
+                            p.SetMaxStamina(100f, true);
+                            p.Heal(50f, true);
+                            p.SetLevel(p.GetLevel() + 1);
+                        }
+                        foreach (var p in Player.GetAllCharacters())
+                        {
+                            p.SetHealth(50f);
+                            p.AddStamina(10f);
+                        }*/
         }
 
         private void OnGUI()

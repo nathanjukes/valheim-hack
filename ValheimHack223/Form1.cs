@@ -58,6 +58,60 @@ namespace ValheimHack223
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            /*// Teleports local player to spawn location
+            Player localPlayer = GetLocalPlayer();
+
+            var myVector = new Vector3(0.0f, 1.0f, 0.0f);
+            var rotationVector = new Vector3(0, 30, 0);
+            var myQuaternion = Quaternion.Euler(rotationVector);
+            localPlayer.TeleportTo(myVector, myQuaternion, true);
+
+            // Teleports other players in the game to the local player
+            foreach (ZNetPeer znetPeer in ZNet.instance.GetPeers())
+            {
+  
+                Chat.instance.TeleportPlayer(znetPeer.m_uid, Player.m_localPlayer.transform.position, 
+                    Player.m_localPlayer.transform.rotation, true);
+            }
+
+
+            // Adds item to local player
+            Inventory inventory = Player.m_localPlayer.GetInventory();
+            // Can be selected from cheat menu
+            GameObject pickaxePrefab = ZNetScene.instance.GetPrefab("PickaxeIron");
+            inventory.AddItem(pickaxePrefab, 10);
+
+
+            //Set local run speed
+            Character myCharacter = new Character();
+            if (!myCharacter.IsPlayer() && input == "Killer") {
+                myCharacter.m_runSpeed = 5
+            }
+            else {
+                myCharacter.m_runSpeed = 10
+            }
+            */
+
+            // Arena creation with ships
+            Player localPlayer = GetLocalPlayer();
+            GameObject prefabShip = ZNetScene.instance.GetPrefab(-1245442852);
+
+            int objectCount = 50;
+            for (int i = 0; i < objectCount; i++)
+            {
+                float angle = i * 360.0f / objectCount; // Calculate the angle between objects
+                Vector3 spawnPosition = localPlayer.transform.position + Quaternion.Euler(0, angle, 0) * localPlayer.transform.forward * 75.0f + localPlayer.transform.up * 30.0f;
+
+                // Instantiate the prefab at the calculated position
+                UnityEngine.Object.Instantiate<GameObject>(prefabShip, spawnPosition, Quaternion.identity);
+            }
+
+
+
+        }
         public Player GetLocalPlayer()
         {
             return Player.m_localPlayer;
