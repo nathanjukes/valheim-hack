@@ -15,5 +15,10 @@ namespace ValheimHack223
             Loader.load_object.AddComponent<Main>();
             UnityEngine.Object.DontDestroyOnLoad(Loader.load_object);
         }
+
+        public static void Dispose()
+        {
+            UnityEngine.Object.Destroy(load_object);
+        }
     }
 }

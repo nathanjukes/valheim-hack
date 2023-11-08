@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 namespace ValheimHack223
 {
@@ -25,15 +26,11 @@ namespace ValheimHack223
 
         private void button2_Click(object sender, EventArgs e)
         {
-            foreach (var p in Player.GetAllPlayers())
-            {
-                p.AddStamina(10f);
-            }
-
             // Ship = -1245442852 item prefab
 
             GameObject prefab = ZNetScene.instance.GetPrefab(-1245442852);
-            int amount = 1;
+            int amount = 10;
+            float gap = 20f;
             int level = 1;
 
             try
@@ -43,10 +40,7 @@ namespace ValheimHack223
 
                 for (int i = 0; i < amount; i++)
                 {
-                    Character component = UnityEngine.Object.Instantiate<GameObject>(prefab, localPlayer.transform.position + localPlayer.transform.forward * 2.0f + Vector3.up + (UnityEngine.Random.insideUnitSphere * 0.5f), Quaternion.identity).GetComponent<Character>();
-
-                    if (component & level > 1)
-                        component.SetLevel(level);
+                    Character component = UnityEngine.Object.Instantiate<GameObject>(prefab, localPlayer.transform.position + localPlayer.transform.up * 10.0f + Vector3.up + (UnityEngine.Random.insideUnitSphere * 0.5f), Quaternion.identity).GetComponent<Character>();
                 }
 
                 string message = $"Spawned x{amount} of {prefab.name} (Level {level})";
@@ -61,6 +55,79 @@ namespace ValheimHack223
         public Player GetLocalPlayer()
         {
             return Player.m_localPlayer;
+        }
+
+        public bool KillPlayer(string name)
+        {
+            Player targetPlayer = GetPlayerFromName(name);
+
+            if (targetPlayer != null)
+            {
+                HitData hit = new HitData();
+                hit.m_damage.m_damage = 9999.0f;
+                targetPlayer.ApplyDamage(hit, true, true);
+                return true;
+            }
+
+            return false;
+        }
+
+
+        public Player GetPlayerFromName(string name, bool aliveOnly = true)
+        {
+            List<Player> players = Player.GetAllPlayers();
+            foreach (Player i in players)
+            {
+                if (aliveOnly && i.IsDead())
+                    continue;
+
+                if (!i.GetPlayerName().Contains(name))
+                    continue;
+
+                return i;
+            }
+
+            return null;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Player localPlayer = GetLocalPlayer();
+            GameObject prefab = ZNetScene.instance.GetPrefab(-1245442852);
+
+
+            // UnityEngine.Object.Instantiate<GameObject>(prefab, localPlayer.transform.position + localPlayer.transform.up * 10.0f + Vector3.up + (UnityEngine.Random.insideUnitSphere * 0.5f), Quaternion.identity).GetComponent<Character>();
+
+            //UnityEngine.Object.Instantiate<GameObject>(prefab, localPlayer.transform.position + localPlayer.transform.forward * 10.0f, Quaternion.identity).GetComponent<Character>();
+
+            int objectCount = 50;
+            for (int i = 0; i < objectCount; i++)
+            {
+                float angle = i * 360.0f / objectCount; // Calculate the angle between objects
+                Vector3 spawnPosition = localPlayer.transform.position + Quaternion.Euler(0, angle, 0) * localPlayer.transform.forward * 75.0f + Quaternion.Euler(0, angle, 0) * localPlayer.transform.up * 30.0f;
+
+                // Instantiate the prefab at the calculated position
+                UnityEngine.Object.Instantiate<GameObject>(prefab, spawnPosition, Quaternion.identity);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ShipConstructor[] ships = UnityEngine.Object.FindObjectsOfType(typeof(ShipConstructor)) as ShipConstructor[];
+
+            // Loop through all instances and destroy them
+            foreach (var s in ships)
+            {
+               // GameObject.Destroy(s);
+                GameObject.DestroyImmediate(s.gameObject);
+            }
+
+            MessageBox.Show("Num of ships: " + ships.Length);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Loader.Dispose();
         }
     }
 }
