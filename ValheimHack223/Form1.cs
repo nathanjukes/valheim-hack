@@ -75,7 +75,7 @@ namespace ValheimHack223
 
         private void button7_Click_1(object sender, EventArgs e)
         {
-            GameFunctions.SpawnMob();
+            GameFunctions.SpawnMobs();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -107,6 +107,16 @@ namespace ValheimHack223
             }
 
             MessageBox.Show("Num of trees: " + trees.Length);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            SpawnSystem.Start();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            SpawnSystem.KillZombies();
         }
     }
 }

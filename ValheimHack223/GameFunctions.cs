@@ -10,7 +10,7 @@ namespace ValheimHack223
 {
     internal class GameFunctions
     {
-        public static void SpawnMob()
+        public static void SpawnMobs()
         {
             // -137741679  Goblin 
             // 505464631   Drauger 
@@ -25,7 +25,7 @@ namespace ValheimHack223
             // 1671717323    Serpent
 
             //amount varies by round 
-            int amount = 1;
+            int amount = 4;
 
             try
             {
@@ -34,7 +34,7 @@ namespace ValheimHack223
                 //[[golin, troll], [Drauger, Wraith, Valkyrie, Skeleton, Greydwarf, Dragon, StoneGolem]]
                 //GameObject[] prefabMobsR1 = { -137741679, 425751481 };
                 //GameObject[] prefabMobsR2 = { 505464631, 68955605, 1321415847, -1035090735, 1126707611, -408509179, 1814827443 };
-                GameObject prefab = ZNetScene.instance.GetPrefab(-1670867714);
+                GameObject prefab = ZNetScene.instance.GetPrefab(-1035090735);
                 
                 for (int i = 0; i < amount; i++)
                 {
