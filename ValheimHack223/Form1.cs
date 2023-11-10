@@ -35,7 +35,7 @@ namespace ValheimHack223
 
             try
             {
-                Player localPlayer = GetLocalPlayer();
+                Player localPlayer = GameFunctions.GetLocalPlayer();
                 DateTime now = DateTime.Now;
 
                 for (int i = 0; i < amount; i++)
@@ -52,47 +52,9 @@ namespace ValheimHack223
             }
         }
 
-        public Player GetLocalPlayer()
-        {
-            return Player.m_localPlayer;
-        }
-
-        public bool KillPlayer(string name)
-        {
-            Player targetPlayer = GetPlayerFromName(name);
-
-            if (targetPlayer != null)
-            {
-                HitData hit = new HitData();
-                hit.m_damage.m_damage = 9999.0f;
-                targetPlayer.ApplyDamage(hit, true, true);
-                return true;
-            }
-
-            return false;
-        }
-
-
-        public Player GetPlayerFromName(string name, bool aliveOnly = true)
-        {
-            List<Player> players = Player.GetAllPlayers();
-            foreach (Player i in players)
-            {
-                if (aliveOnly && i.IsDead())
-                    continue;
-
-                if (!i.GetPlayerName().Contains(name))
-                    continue;
-
-                return i;
-            }
-
-            return null;
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {
-            Player localPlayer = GetLocalPlayer();
+            Player localPlayer = GameFunctions.GetLocalPlayer();
             GameObject prefab = ZNetScene.instance.GetPrefab(-1245442852);
 
 
