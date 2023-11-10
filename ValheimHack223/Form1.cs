@@ -30,7 +30,6 @@ namespace ValheimHack223
 
             GameObject prefab = ZNetScene.instance.GetPrefab(-1245442852);
             int amount = 10;
-            float gap = 20f;
             int level = 1;
 
             try
@@ -109,14 +108,19 @@ namespace ValheimHack223
             MessageBox.Show("Num of trees: " + trees.Length);
         }
 
+        private void CMDArena_Click(object sender, EventArgs e)
+        {
+            GameFunctions.SpawnArena();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SpawnSystem.KillZombies();
+        }
+
         private void button8_Click(object sender, EventArgs e)
         {
             SpawnSystem.Start();
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            SpawnSystem.KillZombies();
         }
     }
 }
