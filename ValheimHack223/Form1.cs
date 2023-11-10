@@ -111,6 +111,11 @@ namespace ValheimHack223
             }
         }
 
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            GameFunctions.SpawnMob();
+        }
+
         private void button4_Click(object sender, EventArgs e)
         {
             ShipConstructor[] ships = UnityEngine.Object.FindObjectsOfType(typeof(ShipConstructor)) as ShipConstructor[];
