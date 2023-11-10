@@ -108,5 +108,10 @@ namespace ValheimHack223
 
             MessageBox.Show("Num of trees: " + trees.Length);
         }
+
+        private void CMDArena_Click(object sender, EventArgs e)
+        {
+            GameFunctions.SpawnArena();
+        }
     }
 }

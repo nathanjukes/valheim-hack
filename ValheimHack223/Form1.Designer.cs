@@ -35,6 +35,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.CMDArena = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -48,7 +49,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(214, 92);
+            this.button2.Location = new System.Drawing.Point(235, 34);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(195, 85);
             this.button2.TabIndex = 1;
@@ -58,7 +59,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(320, 212);
+            this.button3.Location = new System.Drawing.Point(34, 34);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(195, 85);
             this.button3.TabIndex = 2;
@@ -68,7 +69,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(320, 303);
+            this.button4.Location = new System.Drawing.Point(34, 125);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(195, 85);
             this.button4.TabIndex = 3;
@@ -79,7 +80,7 @@
             // button5
             // 
             this.button5.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.button5.Location = new System.Drawing.Point(47, 278);
+            this.button5.Location = new System.Drawing.Point(34, 220);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(195, 85);
             this.button5.TabIndex = 4;
@@ -89,7 +90,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(546, 250);
+            this.button6.Location = new System.Drawing.Point(235, 220);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(195, 85);
             this.button6.TabIndex = 5;
@@ -99,7 +100,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(523, 92);
+            this.button7.Location = new System.Drawing.Point(235, 125);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(195, 85);
             this.button7.TabIndex = 6;
@@ -107,11 +108,22 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click_1);
             // 
+            // CMDArena
+            // 
+            this.CMDArena.Location = new System.Drawing.Point(518, 135);
+            this.CMDArena.Name = "CMDArena";
+            this.CMDArena.Size = new System.Drawing.Size(188, 110);
+            this.CMDArena.TabIndex = 7;
+            this.CMDArena.Text = "Build Arena";
+            this.CMDArena.UseVisualStyleBackColor = true;
+            this.CMDArena.Click += new System.EventHandler(this.CMDArena_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.CMDArena);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -135,5 +147,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button CMDArena;
     }
 }

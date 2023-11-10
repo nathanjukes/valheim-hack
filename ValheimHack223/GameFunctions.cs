@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using System.Windows.Forms;
+using Random = System.Random;
 
 namespace ValheimHack223
 {
     internal class GameFunctions
     {
+        public static Transform arenaCentre;
         public static void SpawnMob()
         {
             // -137741679  Goblin 
@@ -51,6 +54,147 @@ namespace ValheimHack223
 
             }
         }
+
+
+        //  -1993569970 birch2
+        //  735284842	Oak1
+        //  -1183306829	shipwreck_karve_stern
+        //  13326225	stake_wall
+        //  -2111136205	shipwreck_karve_bow
+        public static void SpawnArena()
+        {
+            Player localPlayer = GetLocalPlayer();
+            Vector3 position;
+            int[] prefabs = { -1993569970, 735284842, -1183306829, 13326225, -2111136205 };
+            Random rnd = new Random();
+            int index;
+
+            try
+            {
+                //set arena centre
+                arenaCentre = localPlayer.transform;
+
+                //skip to morning
+                UnityEngine.Object.FindObjectOfType<EnvMan>().SkipToMorning();
+
+                DestroyAllTrees();
+
+                DestroyAllMobs();
+
+                SpawnWall();
+
+                //Generate trees
+                for (int i = 0; i < 20; i++)
+                {
+                    index = rnd.Next(0, 1);
+                    position = GetRandPosition();
+                    UnityEngine.Object.Instantiate<GameObject>(ZNetScene.instance.GetPrefab(prefabs[index]), position, Quaternion.identity);
+                }
+
+                //Generate structures
+                for (int i = 0; i < 20; i++)
+                {
+                    index = rnd.Next(2, 4);
+                    position = GetRandPosition();
+                    position.y += 0.2f;
+                    UnityEngine.Object.Instantiate<GameObject>(ZNetScene.instance.GetPrefab(prefabs[index]), position, Quaternion.identity);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public static void DestroyAllTrees()
+        {
+            //Find and destroy all trees
+            TreeBase[] trees = Game.FindObjectsOfType(typeof(TreeBase)) as TreeBase[];
+            int amount = trees.Length;
+
+            foreach (var s in trees)
+            {
+                GameObject.DestroyImmediate(s.gameObject);
+            }
+
+            //Inform the player of the number of trees destroyed
+            //String message = $"x{amount} trees destroyed";
+            //MessageBox.Show(message);
+        }
+
+        public static void DestroyAllMobs()
+        {
+            //Find and destroy all mobs
+            List<Character> characters = Character.GetAllCharacters();
+            int amount = 0;
+
+            foreach (Character i in characters)
+            {
+                if (!i.IsPlayer())
+                {
+                    HitData hit = new HitData();
+                    hit.m_damage.m_damage = 9999.0f;
+                    i.Damage(hit);
+                    ++amount;
+                }
+            }
+
+            //Inform the player of the number of mobs destroyed
+            //String message = $"x{amount} mobs destroyed";
+            //MessageBox.Show(message);
+        }
+
+        public static void SpawnWall()
+        {
+            //GameObject prefab = ZNetScene.instance.GetPrefab(-1245442852);
+            GameObject prefab = ZNetScene.instance.GetPrefab(1524190963);
+            Player localPlayer = GetLocalPlayer();
+            int objectCount = 110;
+            Vector3 spawnPosition;
+            var spawnPositions = new List<Vector3>();
+            float angle;
+
+            for (int i = 0; i < objectCount; i++)
+            {
+                // Calculate the angle between objects
+                angle = i * 360.0f / objectCount;
+
+                //calculate the position to spawn the prefab
+                spawnPosition = localPlayer.transform.position + Quaternion.Euler(0, angle, 0) * localPlayer.transform.forward * 100.0f + Quaternion.Euler(0, angle, 0) * localPlayer.transform.up * 25.0f;
+
+                float y;
+                ZoneSystem.instance.GetSolidHeight(spawnPosition, out y, 1000);
+                spawnPosition.y = y;
+
+                spawnPositions.Add(spawnPosition);
+            }
+
+            for (int i = 0; i < objectCount; i++)
+            {
+                // Instantiate the prefab at the calculated position
+                UnityEngine.Object.Instantiate<GameObject>(prefab, spawnPositions[i], Quaternion.identity);
+            }
+        }
+
+        public static Vector3 GetRandPosition()
+        {
+            Vector3 position;
+            Random rnd = new Random();
+            float angle = rnd.Next(1, 360);
+            int distance = rnd.Next(10, 85);
+
+            position = arenaCentre.position + Quaternion.Euler(0, angle, 0) * arenaCentre.forward * distance + Quaternion.Euler(0, angle, 0) * arenaCentre.up * 20.0f;
+
+            position = new Vector3(position.x, position.y, position.z);
+
+            float y;
+            ZoneSystem.instance.GetSolidHeight(position, out y, 1000);
+            position.y = y;
+
+            return position;
+        }
+
 
         public static Player GetLocalPlayer()
         {
