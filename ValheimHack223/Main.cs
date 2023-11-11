@@ -6,6 +6,7 @@ using UnityEngine.Windows;
 using System.Windows.Forms;
 using static UnityEngine.GraphicsBuffer;
 using System.Reflection;
+using System.Runtime.Remoting.Messaging;
 
 namespace ValheimHack223
 {
@@ -13,6 +14,7 @@ namespace ValheimHack223
     {
         public Rect MenuWindow = new Rect(20f, 20f, 180f, 290f);
         public static int points = 0;
+        private static bool mapLoaded = false;
 
         private void Start()
         {
@@ -43,6 +45,15 @@ namespace ValheimHack223
                     SpawnSystem.StartSpawning();
                 }
                 SpawnSystem.CheckForSkeletonsAlive();
+            }
+
+            // When the map first loads - Create arena and start zombies spawning
+            if (localPlayer.gameObject.activeSelf && !mapLoaded)
+            {
+                mapLoaded = true;
+
+                GameFunctions.SpawnArena();
+                SpawnSystem.Start();
             }
         }
 

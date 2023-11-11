@@ -67,6 +67,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>E:\steam\steamapps\common\Valheim\valheim_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="assembly_utils, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="assembly_valheim, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>E:\steam\steamapps\common\Valheim\valheim_Data\Managed\assembly_valheim.dll</HintPath>

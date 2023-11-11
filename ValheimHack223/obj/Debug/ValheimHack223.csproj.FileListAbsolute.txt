@@ -114,7 +114,6 @@ E:\coding\GitHub\Repos\valheim-hack\ValheimHack223\bin\Debug\UnityEngine.Physics
 E:\coding\GitHub\Repos\valheim-hack\ValheimHack223\bin\Debug\assembly_googleanalytics.dll
 E:\coding\GitHub\Repos\valheim-hack\ValheimHack223\bin\Debug\UnityEngine.ParticleSystemModule.dll
 E:\coding\GitHub\Repos\valheim-hack\ValheimHack223\bin\Debug\UnityEngine.ClothModule.dll
-E:\coding\GitHub\Repos\valheim-hack\ValheimHack223\bin\Debug\assembly_utils.dll
 E:\coding\GitHub\Repos\valheim-hack\ValheimHack223\bin\Debug\UnityEngine.AudioModule.dll
 E:\coding\GitHub\Repos\valheim-hack\ValheimHack223\bin\Debug\Unity.TextMeshPro.dll
 E:\coding\GitHub\Repos\valheim-hack\ValheimHack223\bin\Debug\assembly_postprocessing.dll

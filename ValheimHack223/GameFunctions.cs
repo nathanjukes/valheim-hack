@@ -12,7 +12,10 @@ namespace ValheimHack223
 {
     internal class GameFunctions
     {
-        public static Transform arenaCentre;
+        private static Transform arenaCentre;
+        private const String ZOMBIES_MAP_NAME = "Zombies Map";
+        private const String ZOMBIES_MAP_SEED = "b3s3sLJU2J";
+
         public static void SpawnMobs()
         {
             // -137741679  Goblin 
@@ -242,6 +245,34 @@ namespace ValheimHack223
         {
             float distance = (float)Math.Sqrt(Math.Pow(pos1.x - pos2.x, 2) + Math.Pow(pos1.y - pos2.y, 2) + Math.Pow(pos1.z - pos2.z, 2));
             return distance;
+        }
+
+        public static void StartMap()
+        {
+            // Called in homescreen, starts map and server
+
+            DeleteMapIfExists();
+
+            CreateMap();
+
+            SaveWithBackups save;
+            SaveSystem.TryGetSaveByName(ZOMBIES_MAP_NAME, SaveDataType.World, out save);
+
+            MessageBox.Show("World Name to load: " + save.m_name);
+
+            //World.LoadWorld(save);
+        }
+
+        private static void CreateMap()
+        {
+            World world = new World(ZOMBIES_MAP_NAME, ZOMBIES_MAP_SEED);
+            world.m_fileSource = FileHelpers.FileSource.Local;
+            world.SaveWorldMetaData(DateTime.Now);
+        }
+
+        public static void DeleteMapIfExists()
+        {
+            World.RemoveWorld(ZOMBIES_MAP_NAME, FileHelpers.FileSource.Local);
         }
     }
 }

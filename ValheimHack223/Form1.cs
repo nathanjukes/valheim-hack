@@ -122,5 +122,15 @@ namespace ValheimHack223
         {
             SpawnSystem.Start();
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            GameFunctions.StartMap();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            GameFunctions.DeleteMapIfExists();
+        }
     }
 }
