@@ -132,5 +132,11 @@ namespace ValheimHack223
         {
             GameFunctions.DeleteMapIfExists();
         }
+
+        private void CMDStartgame_Click(object sender, EventArgs e)
+        {
+            GameFunctions.SpawnArena();
+            GameFunctions.StartGame();
+        }
     }
 }

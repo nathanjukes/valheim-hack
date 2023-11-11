@@ -61,7 +61,7 @@ namespace ValheimHack223
 
             for (int i = 0; i < SpawnSystem.zombieCount; i++)
             {
-                Character enemy = UnityEngine.Object.Instantiate<GameObject>(prefab, localPlayer.transform.position + localPlayer.transform.forward * 10.0f + Vector3.forward + (UnityEngine.Random.insideUnitSphere * 0.5f), Quaternion.identity).GetComponent<Character>();
+                Character enemy = UnityEngine.Object.Instantiate<GameObject>(prefab, GameFunctions.GetRandPosition(), Quaternion.identity).GetComponent<Character>();
                 enemy.SetHealth(1f);
                 skeletons.Add(enemy);
             }

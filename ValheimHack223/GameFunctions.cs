@@ -15,6 +15,7 @@ namespace ValheimHack223
         private static Transform arenaCentre;
         private const String ZOMBIES_MAP_NAME = "Zombies Map";
         private const String ZOMBIES_MAP_SEED = "b3s3sLJU2J";
+        private static Dictionary<string, PrefabDict> itemShop;
 
         public static void SpawnMobs()
         {
@@ -103,6 +104,21 @@ namespace ValheimHack223
                     UnityEngine.Object.Instantiate<GameObject>(ZNetScene.instance.GetPrefab(prefabs[index]), position, Quaternion.identity);
                 }
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public static void StartGame()
+        {
+
+            try
+            {
+                generateDict();
+                InitialLoadout();
+                SpawnSystem.Start();
             }
             catch (Exception ex)
             {
@@ -273,6 +289,96 @@ namespace ValheimHack223
         public static void DeleteMapIfExists()
         {
             World.RemoveWorld(ZOMBIES_MAP_NAME, FileHelpers.FileSource.Local);
+        }
+
+        public static void InitialLoadout()
+        {
+            List<Player> players = Player.GetAllPlayers();
+            Inventory inventory;
+            GameObject tempPrefab;
+
+            foreach (Player i in players)
+            {
+                ClearInventory(i);
+                inventory = i.GetInventory();
+                tempPrefab = ZNetScene.instance.GetPrefab(itemShop["ShieldWood"].hash);
+                inventory.AddItem(tempPrefab, 1);
+                tempPrefab = ZNetScene.instance.GetPrefab(itemShop["Club"].hash);
+                inventory.AddItem(tempPrefab, 1);
+                tempPrefab = ZNetScene.instance.GetPrefab(itemShop["ArmorRagsChest"].hash);
+                inventory.AddItem(tempPrefab, 1);
+                tempPrefab = ZNetScene.instance.GetPrefab(itemShop["ArmorRagsLegs"].hash);
+                inventory.AddItem(tempPrefab, 1);
+            }
+        }
+
+        public static void ClearInventory(Player targetPlayer)
+        {
+            Inventory inventory = targetPlayer.GetInventory();
+            inventory.RemoveAll();
+
+            string message = $"Cleared the inventory";
+            targetPlayer.Message(MessageHud.MessageType.Center, message);
+
+        }
+
+        private static void generateDict()
+        {
+            itemShop = new Dictionary<string, PrefabDict>{
+                {"ArmorBronzeChest", new PrefabDict(-524840022, 1)},
+                {"ArmorBronzeLegs", new PrefabDict(-1070975544, 1)},
+                {"ArmorIronChest", new PrefabDict(-77418440, 1)},
+                {"ArmorIronLegs", new PrefabDict(855433562, 1)},
+                {"ArmorLeatherLegs", new PrefabDict(-129361023, 1)},
+                {"ArmorPaddedCuirass", new PrefabDict(-2102914493, 1)},
+                {"ArmorPaddedGreaves", new PrefabDict(-1316976302, 1)},
+                {"ArmorRagsChest", new PrefabDict(-1873790835, 1)},
+                {"ArmorRagsLegs", new PrefabDict(-1807008579, 1)},
+                {"ArmorTrollLeatherChest", new PrefabDict(-1722809642, 1)},
+                {"ArmorTrollLeatherLegs", new PrefabDict(-560834156, 1)},
+                {"ArmorWolfChest", new PrefabDict(-914594978, 1)},
+                {"ArmorWolfLegs", new PrefabDict(-1695215220, 1)},
+                {"AtgeirBlackmetal", new PrefabDict(275694258, 4) },
+                {"AtgeirBronze", new PrefabDict(-971799304, 2)},
+                {"AtgeirIron", new PrefabDict(-1697777810, 3)},
+                {"AxeBlackMetal", new PrefabDict(1694548656, 4)},
+                {"AxeBronze", new PrefabDict(-533689078, 2)},
+                {"AxeFlint", new PrefabDict(-1468314591, 1)},
+                {"AxeIron", new PrefabDict(1790496580, 3)},
+                {"AxeStone", new PrefabDict(-1779108881, 2)},
+                {"Battleaxe", new PrefabDict(1943723324, 1)},
+                {"BowDraugrFang", new PrefabDict(-1470815101, 1)},
+                {"BowFineWood", new PrefabDict(1304037785, 1)},
+                {"BowHuntsman", new PrefabDict(1410944776, 1)},
+                {"Bow", new PrefabDict(1502599522, 1)},
+                {"Club", new PrefabDict(829393066, 1)},
+                {"KnifeBlackMetal", new PrefabDict(1790496580, 1)},
+                {"KnifeChitin", new PrefabDict(-505018634, 1)},
+                {"KnifeCopper", new PrefabDict(1410911030, 1)},
+                {"KnifeFlint", new PrefabDict(-1567646802, 1)},
+                {"MaceBronze", new PrefabDict(1042173684, 1)},
+                {"MaceIron", new PrefabDict(-2074455458, 1)},
+                {"MaceNeedle", new PrefabDict(1646123621, 1)},
+                {"MaceSilver", new PrefabDict(-589925683, 1)},
+                {"ShieldBlackmetal", new PrefabDict(-417136115, 1)},
+                {"ShieldBlackmetalTower", new PrefabDict(-1283608710, 1)},
+                {"ShieldBronzeBuckler", new PrefabDict(831128417, 1)},
+                {"ShieldIronSquare", new PrefabDict(-66427558, 1)},
+                {"ShieldIronTower", new PrefabDict(1602392070, 1)},
+                {"ShieldKnight", new PrefabDict(-1748101970, 1)},
+                {"ShieldSerpentscale", new PrefabDict(-344082900, 1)},
+                {"ShieldSilver", new PrefabDict(-1248409586, 1)},
+                {"ShieldWood", new PrefabDict(897989326, 1)},
+                {"ShieldWoodTower", new PrefabDict(1729114779, 1)},
+                {"SledgeIron", new PrefabDict(-228048586, 1)},
+                {"SledgeStagbreaker", new PrefabDict(-698896327, 1)},
+                {"SpearBronze", new PrefabDict(-1821145625, 1)},
+                {"SpearChitin", new PrefabDict(678850310, 1)},
+                {"SpearElderbark", new PrefabDict(-1438354023, 1)},
+                {"SpearFlint", new PrefabDict(-1352659250, 1)},
+                {"SpearWolfFang", new PrefabDict(228563121, 1)},
+                {"Torch", new PrefabDict(795277336, 1)}
+            };
         }
     }
 }

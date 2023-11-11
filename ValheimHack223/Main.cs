@@ -51,9 +51,6 @@ namespace ValheimHack223
             if (localPlayer.gameObject.activeSelf && !mapLoaded)
             {
                 mapLoaded = true;
-
-                GameFunctions.SpawnArena();
-                SpawnSystem.Start();
             }
         }
 
