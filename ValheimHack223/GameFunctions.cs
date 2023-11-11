@@ -15,7 +15,7 @@ namespace ValheimHack223
         private static Transform arenaCentre;
         private const String ZOMBIES_MAP_NAME = "Zombies Map";
         private const String ZOMBIES_MAP_SEED = "b3s3sLJU2J";
-        private static Dictionary<string, PrefabDict> itemShop;
+        public static Dictionary<string, PrefabDict> itemShop;
 
         public static void SpawnMobs()
         {
@@ -116,9 +116,9 @@ namespace ValheimHack223
 
             try
             {
-                generateDict();
                 InitialLoadout();
                 SpawnSystem.Start();
+                
             }
             catch (Exception ex)
             {
@@ -294,20 +294,30 @@ namespace ValheimHack223
         public static void InitialLoadout()
         {
             List<Player> players = Player.GetAllPlayers();
-            Inventory inventory;
             GameObject tempPrefab;
 
             foreach (Player i in players)
             {
                 ClearInventory(i);
-                inventory = i.GetInventory();
                 tempPrefab = ZNetScene.instance.GetPrefab(itemShop["ShieldWood"].hash);
-                inventory.AddItem(tempPrefab, 1);
+                UnityEngine.Object.Instantiate<GameObject>(tempPrefab, i.transform.position, Quaternion.identity);
                 tempPrefab = ZNetScene.instance.GetPrefab(itemShop["Club"].hash);
-                inventory.AddItem(tempPrefab, 1);
+                UnityEngine.Object.Instantiate<GameObject>(tempPrefab, i.transform.position, Quaternion.identity);
                 tempPrefab = ZNetScene.instance.GetPrefab(itemShop["ArmorRagsChest"].hash);
-                inventory.AddItem(tempPrefab, 1);
+                UnityEngine.Object.Instantiate<GameObject>(tempPrefab, i.transform.position, Quaternion.identity);
                 tempPrefab = ZNetScene.instance.GetPrefab(itemShop["ArmorRagsLegs"].hash);
+                UnityEngine.Object.Instantiate<GameObject>(tempPrefab, i.transform.position, Quaternion.identity);
+            }
+        }
+
+        public static void BuyItem(String itemName)
+        {
+            Player localPlayer = GetLocalPlayer();
+            GameObject tempPrefab;
+            Inventory inventory = localPlayer.GetInventory();
+            if (Main.points >= itemShop[itemName].cost) {
+                Main.points -= itemShop[itemName].cost;
+                tempPrefab = ZNetScene.instance.GetPrefab(itemShop[itemName].hash);
                 inventory.AddItem(tempPrefab, 1);
             }
         }
@@ -319,10 +329,9 @@ namespace ValheimHack223
 
             string message = $"Cleared the inventory";
             targetPlayer.Message(MessageHud.MessageType.Center, message);
-
         }
 
-        private static void generateDict()
+        public static void generateDict()
         {
             itemShop = new Dictionary<string, PrefabDict>{
                 {"ArmorBronzeChest", new PrefabDict(-524840022, 1)},
@@ -377,7 +386,17 @@ namespace ValheimHack223
                 {"SpearElderbark", new PrefabDict(-1438354023, 1)},
                 {"SpearFlint", new PrefabDict(-1352659250, 1)},
                 {"SpearWolfFang", new PrefabDict(228563121, 1)},
-                {"Torch", new PrefabDict(795277336, 1)}
+                {"Torch", new PrefabDict(795277336, 1)},
+                {"ArrowBronze", new PrefabDict(2137518083, 2)},
+                {"ArrowFire", new PrefabDict(-1917784535, 2)},
+                {"ArrowFlint", new PrefabDict(-843447246, 2)},
+                {"ArrowFrost", new PrefabDict(-641933831, 2)},
+                {"ArrowIron", new PrefabDict(-1003810285, 2)},
+                {"ArrowNeedle", new PrefabDict(1981231808, 2)},
+                {"ArrowObsidian", new PrefabDict(343761714, 2)},
+                {"ArrowPoison", new PrefabDict(-1215929287, 2)},
+                {"ArrowSilver", new PrefabDict(799199670, 2)},
+                {"ArrowWood", new PrefabDict(-782094582, 2)}
             };
         }
     }

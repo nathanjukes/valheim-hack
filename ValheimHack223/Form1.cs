@@ -138,5 +138,15 @@ namespace ValheimHack223
             GameFunctions.SpawnArena();
             GameFunctions.StartGame();
         }
+
+        private void CBXItems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LBLcost.Text = GameFunctions.itemShop[CBXItems.Text].cost.ToString();
+        }
+
+        private void CMDBuy_Click(object sender, EventArgs e)
+        {
+            GameFunctions.BuyItem(CBXItems.Text);
+        }
     }
 }

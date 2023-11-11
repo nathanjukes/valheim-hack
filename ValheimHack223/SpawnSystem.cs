@@ -50,7 +50,9 @@ namespace ValheimHack223
         public static void StartSpawning()
         {
             round++;
-            SpawnSystem.zombieCount = (int)(baseSpawnCount * Math.Pow(1 + spawnIncreasePercentage, round - 1));
+            List<Player> players = Player.GetAllPlayers();
+
+            SpawnSystem.zombieCount = round * players.Count();
             SpawnSkeletons();
         }
 

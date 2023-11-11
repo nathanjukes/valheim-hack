@@ -18,17 +18,15 @@ namespace ValheimHack223
 
         private void Start()
         {
+            GameFunctions.generateDict();
             Form1 r = new Form1();
             r.Show();
-
-            Player.m_localPlayer.SetHealth(50f);
-            Player.m_localPlayer.AddStamina(50f);
+            points += 100;
         }
 
         public void Update()
         {
             Player localPlayer = Player.m_localPlayer;
-            localPlayer.SetHealth(25f);
 
             // Add points for a player attacking a zombie
             if (localPlayer.InAttack() && localPlayer.GetTimeSinceLastAttack() > 0.3)// && localPlayer.GetTimeSinceLastAttack() > 0.1f)

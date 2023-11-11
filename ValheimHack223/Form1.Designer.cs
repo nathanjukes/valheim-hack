@@ -40,6 +40,9 @@
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.CMDStartgame = new System.Windows.Forms.Button();
+            this.CBXItems = new System.Windows.Forms.ComboBox();
+            this.CMDBuy = new System.Windows.Forms.Button();
+            this.LBLcost = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -115,7 +118,7 @@
             // 
             // CMDArena
             // 
-            this.CMDArena.Location = new System.Drawing.Point(719, 47);
+            this.CMDArena.Location = new System.Drawing.Point(436, 9);
             this.CMDArena.Name = "CMDArena";
             this.CMDArena.Size = new System.Drawing.Size(188, 110);
             this.CMDArena.TabIndex = 7;
@@ -125,7 +128,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(719, 177);
+            this.button8.Location = new System.Drawing.Point(630, 9);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(188, 110);
             this.button8.TabIndex = 8;
@@ -135,9 +138,9 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(719, 306);
+            this.button9.Location = new System.Drawing.Point(184, 366);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(188, 110);
+            this.button9.Size = new System.Drawing.Size(122, 72);
             this.button9.TabIndex = 9;
             this.button9.Text = "Load Map";
             this.button9.UseVisualStyleBackColor = true;
@@ -155,7 +158,7 @@
             // 
             // CMDStartgame
             // 
-            this.CMDStartgame.Location = new System.Drawing.Point(578, 325);
+            this.CMDStartgame.Location = new System.Drawing.Point(43, 366);
             this.CMDStartgame.Name = "CMDStartgame";
             this.CMDStartgame.Size = new System.Drawing.Size(135, 72);
             this.CMDStartgame.TabIndex = 11;
@@ -163,11 +166,128 @@
             this.CMDStartgame.UseVisualStyleBackColor = true;
             this.CMDStartgame.Click += new System.EventHandler(this.CMDStartgame_Click);
             // 
+            // CBXItems
+            // 
+            this.CBXItems.FormattingEnabled = true;
+            this.CBXItems.Items.AddRange(new object[] {
+            "ArmorBronzeChest",
+            "ArmorBronzeLegs",
+            "ArmorIronChest",
+            "ArmorIronLegs",
+            "ArmorLeatherLegs",
+            "ArmorPaddedCuirass",
+            "ArmorPaddedGreaves",
+            "ArmorRagsChest",
+            "ArmorRagsLegs",
+            "ArmorTrollLeatherChest",
+            "ArmorTrollLeatherLegs",
+            "ArmorWolfChest",
+            "ArmorWolfLegs",
+            "AtgeirBlackmetal",
+            "AtgeirBronze",
+            "AtgeirIron",
+            "AxeBlackMetal",
+            "AxeBronze",
+            "AxeFlint",
+            "AxeIron",
+            "AxeStone",
+            "Battleaxe",
+            "BowDraugrFang",
+            "BowFineWood",
+            "BowHuntsman",
+            "Bow",
+            "Club",
+            "KnifeBlackMetal",
+            "KnifeChitin",
+            "KnifeCopper",
+            "KnifeFlint",
+            "MaceBronze",
+            "MaceIron",
+            "MaceNeedle",
+            "MaceSilver",
+            "ShieldBlackmetal",
+            "ShieldBlackmetalTower",
+            "ShieldBronzeBuckler",
+            "ShieldIronSquare",
+            "ShieldIronTower",
+            "ShieldKnight",
+            "ShieldSerpentscale",
+            "ShieldSilver",
+            "ShieldWood",
+            "ShieldWoodTower",
+            "SledgeIron",
+            "SledgeStagbreaker",
+            "SpearBronze",
+            "SpearChitin",
+            "SpearElderbark",
+            "SpearFlint",
+            "SpearWolfFang",
+            "Tankard",
+            "TankardOdin",
+            "Torch",
+            "Bread",
+            "BloodPudding",
+            "Blueberries",
+            "Carrot",
+            "CarrotSoup",
+            "Cloudberry",
+            "CookedLoxMeat",
+            "CookedMeat",
+            "FishCooked",
+            "Honey",
+            "Mushroom",
+            "MushroomBlue",
+            "MushroomYellow",
+            "NeckTailGrilled",
+            "Raspberry",
+            "QueensJam",
+            "Sausages",
+            "SerpentMeatCooked",
+            "SerpentStew",
+            "Turnip",
+            "TurnipStew",
+            "ArrowBronze",
+            "ArrowFire",
+            "ArrowFlint",
+            "ArrowFrost",
+            "ArrowIron",
+            "ArrowNeedle",
+            "ArrowObsidian",
+            "ArrowPoison",
+            "ArrowSilver",
+            "ArrowWood"});
+            this.CBXItems.Location = new System.Drawing.Point(330, 386);
+            this.CBXItems.Name = "CBXItems";
+            this.CBXItems.Size = new System.Drawing.Size(121, 21);
+            this.CBXItems.TabIndex = 12;
+            this.CBXItems.SelectedIndexChanged += new System.EventHandler(this.CBXItems_SelectedIndexChanged);
+            // 
+            // CMDBuy
+            // 
+            this.CMDBuy.Location = new System.Drawing.Point(530, 386);
+            this.CMDBuy.Name = "CMDBuy";
+            this.CMDBuy.Size = new System.Drawing.Size(75, 23);
+            this.CMDBuy.TabIndex = 13;
+            this.CMDBuy.Text = "Buy item";
+            this.CMDBuy.UseVisualStyleBackColor = true;
+            this.CMDBuy.Click += new System.EventHandler(this.CMDBuy_Click);
+            // 
+            // LBLcost
+            // 
+            this.LBLcost.AutoSize = true;
+            this.LBLcost.Location = new System.Drawing.Point(468, 386);
+            this.LBLcost.Name = "LBLcost";
+            this.LBLcost.Size = new System.Drawing.Size(0, 13);
+            this.LBLcost.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(937, 450);
+            this.ClientSize = new System.Drawing.Size(1000, 454);
+            this.Controls.Add(this.LBLcost);
+            this.Controls.Add(this.CMDBuy);
+            this.Controls.Add(this.CBXItems);
             this.Controls.Add(this.CMDStartgame);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
@@ -184,6 +304,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -201,5 +322,8 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button CMDStartgame;
+        private System.Windows.Forms.ComboBox CBXItems;
+        private System.Windows.Forms.Button CMDBuy;
+        private System.Windows.Forms.Label LBLcost;
     }
 }
