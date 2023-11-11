@@ -313,13 +313,22 @@ namespace ValheimHack223
 
         public static void BuyItem(String itemName)
         {
+            int amount = 1;
             Player localPlayer = GetLocalPlayer();
             GameObject tempPrefab;
             Inventory inventory = localPlayer.GetInventory();
             if (Main.points >= itemShop[itemName].cost) {
                 Main.points -= itemShop[itemName].cost;
                 tempPrefab = ZNetScene.instance.GetPrefab(itemShop[itemName].hash);
-                inventory.AddItem(tempPrefab, 1);
+                if (itemName.Contains("Arrow")) {
+                    amount = 20;
+                }
+                inventory.AddItem(tempPrefab, amount);
+            }
+            else
+            {
+                string message = $"You cannot afford that item!";
+                localPlayer.Message(MessageHud.MessageType.Center, message);
             }
         }
 
@@ -335,19 +344,19 @@ namespace ValheimHack223
         public static void generateDict()
         {
             itemShop = new Dictionary<string, PrefabDict>{
-                {"ArmorBronzeChest", new PrefabDict(-524840022, 1)},
-                {"ArmorBronzeLegs", new PrefabDict(-1070975544, 1)},
-                {"ArmorIronChest", new PrefabDict(-77418440, 1)},
-                {"ArmorIronLegs", new PrefabDict(855433562, 1)},
-                {"ArmorLeatherLegs", new PrefabDict(-129361023, 1)},
+                {"ArmorBronzeChest", new PrefabDict(-524840022, 2)},
+                {"ArmorBronzeLegs", new PrefabDict(-1070975544, 2)},
+                {"ArmorIronChest", new PrefabDict(-77418440, 5)},
+                {"ArmorIronLegs", new PrefabDict(855433562, 5)},
+                {"ArmorLeatherLegs", new PrefabDict(-129361023, 3)},
                 {"ArmorPaddedCuirass", new PrefabDict(-2102914493, 1)},
                 {"ArmorPaddedGreaves", new PrefabDict(-1316976302, 1)},
                 {"ArmorRagsChest", new PrefabDict(-1873790835, 1)},
                 {"ArmorRagsLegs", new PrefabDict(-1807008579, 1)},
-                {"ArmorTrollLeatherChest", new PrefabDict(-1722809642, 1)},
-                {"ArmorTrollLeatherLegs", new PrefabDict(-560834156, 1)},
-                {"ArmorWolfChest", new PrefabDict(-914594978, 1)},
-                {"ArmorWolfLegs", new PrefabDict(-1695215220, 1)},
+                {"ArmorTrollLeatherChest", new PrefabDict(-1722809642, 3)},
+                {"ArmorTrollLeatherLegs", new PrefabDict(-560834156, 3)},
+                {"ArmorWolfChest", new PrefabDict(-914594978, 3)},
+                {"ArmorWolfLegs", new PrefabDict(-1695215220, 3)},
                 {"AtgeirBlackmetal", new PrefabDict(275694258, 4) },
                 {"AtgeirBronze", new PrefabDict(-971799304, 2)},
                 {"AtgeirIron", new PrefabDict(-1697777810, 3)},
@@ -356,48 +365,48 @@ namespace ValheimHack223
                 {"AxeFlint", new PrefabDict(-1468314591, 1)},
                 {"AxeIron", new PrefabDict(1790496580, 3)},
                 {"AxeStone", new PrefabDict(-1779108881, 2)},
-                {"Battleaxe", new PrefabDict(1943723324, 1)},
-                {"BowDraugrFang", new PrefabDict(-1470815101, 1)},
-                {"BowFineWood", new PrefabDict(1304037785, 1)},
-                {"BowHuntsman", new PrefabDict(1410944776, 1)},
-                {"Bow", new PrefabDict(1502599522, 1)},
+                {"Battleaxe", new PrefabDict(1943723324, 6)},
+                {"BowDraugrFang", new PrefabDict(-1470815101, 2)},
+                {"BowFineWood", new PrefabDict(1304037785, 4)},
+                {"BowHuntsman", new PrefabDict(1410944776, 5)},
+                {"Bow", new PrefabDict(1502599522, 2)},
                 {"Club", new PrefabDict(829393066, 1)},
-                {"KnifeBlackMetal", new PrefabDict(1790496580, 1)},
-                {"KnifeChitin", new PrefabDict(-505018634, 1)},
-                {"KnifeCopper", new PrefabDict(1410911030, 1)},
+                {"KnifeBlackMetal", new PrefabDict(1790496580, 6)},
+                {"KnifeChitin", new PrefabDict(-505018634, 2)},
+                {"KnifeCopper", new PrefabDict(1410911030, 4)},
                 {"KnifeFlint", new PrefabDict(-1567646802, 1)},
-                {"MaceBronze", new PrefabDict(1042173684, 1)},
-                {"MaceIron", new PrefabDict(-2074455458, 1)},
-                {"MaceNeedle", new PrefabDict(1646123621, 1)},
-                {"MaceSilver", new PrefabDict(-589925683, 1)},
-                {"ShieldBlackmetal", new PrefabDict(-417136115, 1)},
-                {"ShieldBlackmetalTower", new PrefabDict(-1283608710, 1)},
+                {"MaceBronze", new PrefabDict(1042173684, 2)},
+                {"MaceIron", new PrefabDict(-2074455458, 2)},
+                {"MaceNeedle", new PrefabDict(1646123621, 3)},
+                {"MaceSilver", new PrefabDict(-589925683, 3)},
+                {"ShieldBlackmetal", new PrefabDict(-417136115, 5)},
+                {"ShieldBlackmetalTower", new PrefabDict(-1283608710, 5)},
                 {"ShieldBronzeBuckler", new PrefabDict(831128417, 1)},
-                {"ShieldIronSquare", new PrefabDict(-66427558, 1)},
-                {"ShieldIronTower", new PrefabDict(1602392070, 1)},
-                {"ShieldKnight", new PrefabDict(-1748101970, 1)},
-                {"ShieldSerpentscale", new PrefabDict(-344082900, 1)},
-                {"ShieldSilver", new PrefabDict(-1248409586, 1)},
+                {"ShieldIronSquare", new PrefabDict(-66427558, 3)},
+                {"ShieldIronTower", new PrefabDict(1602392070, 3)},
+                {"ShieldKnight", new PrefabDict(-1748101970, 4)},
+                {"ShieldSerpentscale", new PrefabDict(-344082900, 6)},
+                {"ShieldSilver", new PrefabDict(-1248409586, 2)},
                 {"ShieldWood", new PrefabDict(897989326, 1)},
                 {"ShieldWoodTower", new PrefabDict(1729114779, 1)},
-                {"SledgeIron", new PrefabDict(-228048586, 1)},
-                {"SledgeStagbreaker", new PrefabDict(-698896327, 1)},
-                {"SpearBronze", new PrefabDict(-1821145625, 1)},
-                {"SpearChitin", new PrefabDict(678850310, 1)},
-                {"SpearElderbark", new PrefabDict(-1438354023, 1)},
+                {"SledgeIron", new PrefabDict(-228048586, 3)},
+                {"SledgeStagbreaker", new PrefabDict(-698896327, 3)},
+                {"SpearBronze", new PrefabDict(-1821145625, 2)},
+                {"SpearChitin", new PrefabDict(678850310, 2)},
+                {"SpearElderbark", new PrefabDict(-1438354023, 2)},
                 {"SpearFlint", new PrefabDict(-1352659250, 1)},
                 {"SpearWolfFang", new PrefabDict(228563121, 1)},
                 {"Torch", new PrefabDict(795277336, 1)},
                 {"ArrowBronze", new PrefabDict(2137518083, 2)},
-                {"ArrowFire", new PrefabDict(-1917784535, 2)},
-                {"ArrowFlint", new PrefabDict(-843447246, 2)},
-                {"ArrowFrost", new PrefabDict(-641933831, 2)},
-                {"ArrowIron", new PrefabDict(-1003810285, 2)},
+                {"ArrowFire", new PrefabDict(-1917784535, 5)},
+                {"ArrowFlint", new PrefabDict(-843447246, 1)},
+                {"ArrowFrost", new PrefabDict(-641933831, 6)},
+                {"ArrowIron", new PrefabDict(-1003810285, 3)},
                 {"ArrowNeedle", new PrefabDict(1981231808, 2)},
-                {"ArrowObsidian", new PrefabDict(343761714, 2)},
-                {"ArrowPoison", new PrefabDict(-1215929287, 2)},
+                {"ArrowObsidian", new PrefabDict(343761714, 5)},
+                {"ArrowPoison", new PrefabDict(-1215929287, 6)},
                 {"ArrowSilver", new PrefabDict(799199670, 2)},
-                {"ArrowWood", new PrefabDict(-782094582, 2)}
+                {"ArrowWood", new PrefabDict(-782094582, 1)}
             };
         }
 
@@ -416,6 +425,11 @@ namespace ValheimHack223
                 GetLocalPlayer().SetSkinColor(tempVec);
             else
                 GetLocalPlayer().SetHairColor(tempVec);
+        }
+
+        public static void AlwaysHeal() {
+            Player localPlayer = GetLocalPlayer();
+            localPlayer.Heal(20);
         }
     }
 }

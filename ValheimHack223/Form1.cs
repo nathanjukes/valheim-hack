@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UnityEngine;
+using System.Threading;
 using UnityEngine.Experimental.Rendering;
 
 namespace ValheimHack223
 {
     public partial class Form1 : Form
     {
+        private static System.Timers.Timer aTimer;
         public Form1()
         {
             InitializeComponent();
@@ -131,6 +133,52 @@ namespace ValheimHack223
         private void button10_Click(object sender, EventArgs e)
         {
             GameFunctions.DeleteMapIfExists();
+        }
+
+        private void button11_Click(object sender, EventArgs e) {
+            Player localPlayer = GameFunctions.GetLocalPlayer();
+            string message = $"Health will increase.";
+            localPlayer.Message(MessageHud.MessageType.Center, message);
+            GameFunctions.ChangeSkinColour();
+    
+            localPlayer.SetHealth(50000);
+            Thread.Sleep(10000);
+
+            localPlayer.SetHealth(50);
+
+            string message2 = $"Health has been increased!";
+            localPlayer.Message(MessageHud.MessageType.Center, message2);
+
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Player localPlayer = GameFunctions.GetLocalPlayer();
+            if (Main.points >= 50000)
+            {
+                GameFunctions.DestroyAllMobs();
+                string message = $"Congratulations you have won the game of Zombies!";
+                localPlayer.Message(MessageHud.MessageType.Center, message);
+            }
+            else {
+                string message = $"You do not have 50000 points in order to end the game!";
+                localPlayer.Message(MessageHud.MessageType.Center, message);
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e) {
+            Player localPlayer = GameFunctions.GetLocalPlayer();
+            localPlayer.RaiseSkill(Skills.SkillType.Axes);
+            localPlayer.RaiseSkill(Skills.SkillType.BloodMagic);
+            localPlayer.RaiseSkill(Skills.SkillType.Crossbows);
+            localPlayer.RaiseSkill(Skills.SkillType.Jump);
+            localPlayer.RaiseSkill(Skills.SkillType.Run);
+            localPlayer.RaiseSkill(Skills.SkillType.Swim);
+            localPlayer.RaiseSkill(Skills.SkillType.Swords);
+            localPlayer.RaiseSkill(Skills.SkillType.Sneak);
+            localPlayer.RaiseSkill(Skills.SkillType.Pickaxes);
+            localPlayer.RaiseSkill(Skills.SkillType.Knives);
+
         }
 
         private void CMDStartgame_Click(object sender, EventArgs e)
