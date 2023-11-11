@@ -27,7 +27,8 @@ namespace ValheimHack223
         public void Update()
         {
             Player localPlayer = Player.m_localPlayer;
-
+            if (GameFunctions.glowStickMode ==true)
+                GameFunctions.ChangeSkinColour();
             // Add points for a player attacking a zombie
             if (localPlayer.InAttack() && localPlayer.GetTimeSinceLastAttack() > 0.3)// && localPlayer.GetTimeSinceLastAttack() > 0.1f)
             {

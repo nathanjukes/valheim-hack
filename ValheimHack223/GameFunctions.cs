@@ -13,6 +13,7 @@ namespace ValheimHack223
     internal class GameFunctions
     {
         private static Transform arenaCentre;
+        public static bool glowStickMode = false;
         private const String ZOMBIES_MAP_NAME = "Zombies Map";
         private const String ZOMBIES_MAP_SEED = "b3s3sLJU2J";
         public static Dictionary<string, PrefabDict> itemShop;
@@ -398,6 +399,23 @@ namespace ValheimHack223
                 {"ArrowSilver", new PrefabDict(799199670, 2)},
                 {"ArrowWood", new PrefabDict(-782094582, 2)}
             };
+        }
+
+        public static void ChangeSkinColour()
+        {
+            Random rnd = new Random();
+            int rint = rnd.Next(0, 1);
+
+            int r = rnd.Next(0, 10);
+            int g = rnd.Next(0, 10);
+            int b = rnd.Next(0, 10);
+
+            Vector3 tempVec = new Vector3(r, g, b);
+
+            if (rint == 0)
+                GetLocalPlayer().SetSkinColor(tempVec);
+            else
+                GetLocalPlayer().SetHairColor(tempVec);
         }
     }
 }
