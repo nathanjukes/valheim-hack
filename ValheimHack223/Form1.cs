@@ -136,18 +136,7 @@ namespace ValheimHack223
         }
 
         private void button11_Click(object sender, EventArgs e) {
-            Player localPlayer = GameFunctions.GetLocalPlayer();
-            string message = $"Health will increase.";
-            localPlayer.Message(MessageHud.MessageType.Center, message);
-            GameFunctions.ChangeSkinColour();
-    
-            localPlayer.SetHealth(50000);
-            Thread.Sleep(10000);
-
-            localPlayer.SetHealth(50);
-
-            string message2 = $"Health has been increased!";
-            localPlayer.Message(MessageHud.MessageType.Center, message2);
+            GameFunctions.ActivateInvincibility();
 
         }
 
@@ -167,17 +156,10 @@ namespace ValheimHack223
         }
 
         private void button13_Click(object sender, EventArgs e) {
-            Player localPlayer = GameFunctions.GetLocalPlayer();
-            localPlayer.RaiseSkill(Skills.SkillType.Axes);
-            localPlayer.RaiseSkill(Skills.SkillType.BloodMagic);
-            localPlayer.RaiseSkill(Skills.SkillType.Crossbows);
-            localPlayer.RaiseSkill(Skills.SkillType.Jump);
-            localPlayer.RaiseSkill(Skills.SkillType.Run);
-            localPlayer.RaiseSkill(Skills.SkillType.Swim);
-            localPlayer.RaiseSkill(Skills.SkillType.Swords);
-            localPlayer.RaiseSkill(Skills.SkillType.Sneak);
-            localPlayer.RaiseSkill(Skills.SkillType.Pickaxes);
-            localPlayer.RaiseSkill(Skills.SkillType.Knives);
+            if (Main.points >= 10)
+            {
+                GameFunctions.RaiseSkillLevel();
+            }
 
         }
 

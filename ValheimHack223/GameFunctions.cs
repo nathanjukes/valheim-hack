@@ -427,9 +427,65 @@ namespace ValheimHack223
                 GetLocalPlayer().SetHairColor(tempVec);
         }
 
+        public static void ActivateInvincibility() {
+            //TODO
+            var timer = new System.Windows.Forms.Timer();
+
+
+            timer.Interval = 1000; //Interval of every second
+            timer.Tick += EventTimer();
+            timer.Start();
+        }
+
+        public static System.EventHandler EventTimer() {
+
+            //TODO
+            AlwaysHeal();
+            ChangeHairColour();
+            System.EventHandler env;
+            return env;
+        }
+
+        public static void ChangeHairColour()
+        {
+            Random rnd = new Random();
+            int rint = rnd.Next(0, 1);
+
+            int r = rnd.Next(0, 10);
+            int g = rnd.Next(0, 10);
+            int b = rnd.Next(0, 10);
+
+            Vector3 tempVec = new Vector3(r, g, b);
+            GetLocalPlayer().SetHairColor(tempVec);
+        }
+
+        public static Vector3 GetCurrentHairColour()
+        {
+            return GetLocalPlayer().GetHairColor();
+        }
+
+        public static void SetOldHairColour(Vector3 oldHairColour)
+        {
+            GetLocalPlayer().SetHairColor(oldHairColour);
+        }
+
         public static void AlwaysHeal() {
             Player localPlayer = GetLocalPlayer();
             localPlayer.Heal(20);
+        }
+
+        public static void RaiseSkillLevel() {
+            Player localPlayer = GameFunctions.GetLocalPlayer();
+            localPlayer.RaiseSkill(Skills.SkillType.Axes);
+            localPlayer.RaiseSkill(Skills.SkillType.BloodMagic);
+            localPlayer.RaiseSkill(Skills.SkillType.Crossbows);
+            localPlayer.RaiseSkill(Skills.SkillType.Jump);
+            localPlayer.RaiseSkill(Skills.SkillType.Run);
+            localPlayer.RaiseSkill(Skills.SkillType.Swim);
+            localPlayer.RaiseSkill(Skills.SkillType.Swords);
+            localPlayer.RaiseSkill(Skills.SkillType.Sneak);
+            localPlayer.RaiseSkill(Skills.SkillType.Pickaxes);
+            localPlayer.RaiseSkill(Skills.SkillType.Knives);
         }
     }
 }
