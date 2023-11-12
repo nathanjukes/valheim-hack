@@ -159,14 +159,18 @@ namespace ValheimHack223
         private void button12_Click(object sender, EventArgs e)
         {
             Player localPlayer = GameFunctions.GetLocalPlayer();
-            if (Main.points >= 50000)
+            //10 for testing
+            int PointsToWin = 50000;
+            if (Main.points >= PointsToWin)
             {
+                SpawnSystem.finished = true;
                 GameFunctions.DestroyAllMobs();
                 string message = $"Congratulations you have won the game of Zombies!";
                 localPlayer.Message(MessageHud.MessageType.Center, message);
+                GameFunctions.DestroyAllWalls();
             }
             else {
-                string message = $"You do not have 50000 points in order to end the game!";
+                string message = $"You do not have {PointsToWin} points in order to end the game!";
                 localPlayer.Message(MessageHud.MessageType.Center, message);
             }
         }
@@ -174,6 +178,7 @@ namespace ValheimHack223
         private void button13_Click(object sender, EventArgs e) {
             if (Main.points >= 10)
             {
+                Main.points -= 10;
                 GameFunctions.RaiseSkillLevel();
             }
 

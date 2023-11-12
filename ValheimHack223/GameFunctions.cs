@@ -141,6 +141,19 @@ namespace ValheimHack223
             //MessageBox.Show(message);
         }
 
+        public static void DestroyAllWalls() {
+            GameObject prefab = ZNetScene.instance.GetPrefab(1524190963);
+            
+            // rockformation1
+            //TODO
+            for (int i = 0; i < 110; i++)
+            {
+                GameObject.DestroyImmediate(prefab);
+                ZNetScene.DestroyImmediate(prefab);
+            };
+
+        }
+
         public static void DestroyAllMobs()
         {
             //Find and destroy all mobs
@@ -166,6 +179,7 @@ namespace ValheimHack223
         public static void SpawnWall()
         {
             //GameObject prefab = ZNetScene.instance.GetPrefab(-1245442852);
+            
             GameObject prefab = ZNetScene.instance.GetPrefab(1524190963);
             Player localPlayer = GetLocalPlayer();
             int objectCount = 110;

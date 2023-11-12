@@ -15,6 +15,8 @@ namespace ValheimHack223
 
         public static bool started = false;
 
+        public static bool finished = false;
+
         public static List<Character> skeletons = new List<Character>();
 
         private const int SKELETON_ID = -1035090735;
@@ -49,11 +51,13 @@ namespace ValheimHack223
 
         public static void StartSpawning()
         {
-            round++;
-            List<Player> players = Player.GetAllPlayers();
+            if (finished == false) {
+                round++;
+                List<Player> players = Player.GetAllPlayers();
 
-            SpawnSystem.zombieCount = round * players.Count() * difficultyMultiplier;
-            SpawnSkeletons();
+                SpawnSystem.zombieCount = round * players.Count() * difficultyMultiplier;
+                SpawnSkeletons();
+            }
         }
 
         private static void SpawnSkeletons()

@@ -37,7 +37,7 @@ namespace ValheimHack223
 
             if (SpawnSystem.started)
             {
-                if (SpawnSystem.zombieCount == 0 && SpawnSystem.round != 0)
+                if (SpawnSystem.zombieCount == 0 && SpawnSystem.round != 0 && SpawnSystem.finished != true)
                 {
                     // Add time between rounds here
                     GameFunctions.GetLocalPlayer().Message(MessageHud.MessageType.Center, "Next round");
