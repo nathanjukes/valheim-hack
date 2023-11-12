@@ -446,25 +446,6 @@ namespace ValheimHack223
                 GetLocalPlayer().SetHairColor(tempVec);
         }
 
-        public static void ActivateInvincibility() {
-            //TODO
-            /*var timer = new System.Windows.Forms.Timer();
-
-
-            timer.Interval = 1000; //Interval of every second
-            timer.Tick += EventTimer();
-            timer.Start();*/
-        }
-
-       /* public static System.EventHandler EventTimer() {
-
-            //TODO
-            AlwaysHeal();
-            ChangeHairColour();
-            System.EventHandler env;
-            return env;
-        }*/
-
         public static void ChangeHairColour()
         {
             Random rnd = new Random();

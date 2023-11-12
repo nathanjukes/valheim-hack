@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Windows.Forms;
 using UnityEngine;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace ValheimHack223
 {
     public partial class Form1 : Form
     {
+        public static int counter = 0;
+        public static bool exitFlag = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -127,9 +130,30 @@ namespace ValheimHack223
             GameFunctions.DeleteMapIfExists();
         }
 
-        private void button11_Click(object sender, EventArgs e) {
-            GameFunctions.ActivateInvincibility();
+        public void button11_Click(object sender, EventArgs e)
+        {
+            counter = 0;
+            exitFlag = false;
 
+            GameFunctions.GetLocalPlayer().Message(MessageHud.MessageType.Center, "Invincibility has started!");
+            InvincibilityCycle();
+        }
+
+        public async void InvincibilityCycle()
+        {
+            while (exitFlag == false)
+            {
+                GameFunctions.ChangeSkinColour();
+                GameFunctions.AlwaysHeal();
+                counter++;
+
+                if (counter > 10)
+                    exitFlag = true;
+
+                await Task.Delay(1000).ConfigureAwait(false);
+            }
+
+            GameFunctions.GetLocalPlayer().Message(MessageHud.MessageType.Center, "Invincibility has ended!");
         }
 
         private void button12_Click(object sender, EventArgs e)
