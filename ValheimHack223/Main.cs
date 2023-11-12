@@ -57,7 +57,7 @@ namespace ValheimHack223
         {
             //FPS Counter
             GUI.color = Color.yellow;
-            GUI.Label(new Rect(300f, 0f, 600f, 40f), "Score: " + points + " Zombies: " + SpawnSystem.zombieCount + " Round: " + SpawnSystem.round); // This re-renders when points changes btw
+            GUI.Label(new Rect(300f, 0f, 600f, 40f), "Score: " + points + " Zombies: " + SpawnSystem.zombieCount + " Round: " + SpawnSystem.round + " Difficulty Multiplier: " + SpawnSystem.difficultyMultiplier); // This re-renders when points changes btw
         }
     }
 }

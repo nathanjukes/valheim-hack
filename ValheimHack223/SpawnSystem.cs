@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace ValheimHack223
 {
@@ -18,6 +11,8 @@ namespace ValheimHack223
         public static int baseSpawnCount = 2;
         public static int zombieCount;
 
+        public static int difficultyMultiplier;
+
         public static bool started = false;
 
         public static List<Character> skeletons = new List<Character>();
@@ -25,8 +20,13 @@ namespace ValheimHack223
         private const int SKELETON_ID = -1035090735;
         private const double spawnIncreasePercentage = 0.2;
 
-        public static void Start()
+        public static void Start(int difficulty)
         {
+            difficultyMultiplier = difficulty;
+
+            string message = $"Difficulty multiplier set to: {difficulty}";
+            GameFunctions.GetLocalPlayer().Message(MessageHud.MessageType.Center, message);
+
             StartSpawning();
 
             PrintGoodLuckMessage();
@@ -52,7 +52,7 @@ namespace ValheimHack223
             round++;
             List<Player> players = Player.GetAllPlayers();
 
-            SpawnSystem.zombieCount = round * players.Count();
+            SpawnSystem.zombieCount = round * players.Count() * difficultyMultiplier;
             SpawnSkeletons();
         }
 

@@ -112,14 +112,12 @@ namespace ValheimHack223
             }
         }
 
-        public static void StartGame()
+        public static void StartGame(int difficultyMultiplier)
         {
-
             try
             {
                 InitialLoadout();
-                SpawnSystem.Start();
-                
+                SpawnSystem.Start(difficultyMultiplier);
             }
             catch (Exception ex)
             {
@@ -406,7 +404,28 @@ namespace ValheimHack223
                 {"ArrowObsidian", new PrefabDict(343761714, 5)},
                 {"ArrowPoison", new PrefabDict(-1215929287, 6)},
                 {"ArrowSilver", new PrefabDict(799199670, 2)},
-                {"ArrowWood", new PrefabDict(-782094582, 1)}
+                {"ArrowWood", new PrefabDict(-782094582, 1)},
+                {"Bread", new PrefabDict(1185250548, 4) },
+                {"BloodPudding", new PrefabDict(-1293151425, 2) },
+                {"Blueberries", new PrefabDict(583402574, 1) },
+                {"Carrot", new PrefabDict(1209145989, 1) },
+                {"CarrotSoup", new PrefabDict(248039118, 2) },
+                {"Cloudberry", new PrefabDict(-1899504733, 2) },
+                {"CookedLoxMeat", new PrefabDict(-687491193, 6) },
+                {"CookedMeat", new PrefabDict(-90783900, 6) },
+                {"FishCooked", new PrefabDict(-1292410483, 6) },
+                {"Honey", new PrefabDict(1601842181, 1) },
+                {"Mushroom", new PrefabDict(-1961898040, 2) },
+                {"MushroomBlue", new PrefabDict(660592112, 2) },
+                {"MushroomYellow", new PrefabDict(-115856560, 2) },
+                {"NeckTailGrilled", new PrefabDict(-1094347100, 3) },
+                {"Raspberry", new PrefabDict(1479220028, 2) },
+                {"QueensJam", new PrefabDict(-474798661, 1) },
+                {"Sausages", new PrefabDict(1580132118, 5) },
+                {"SerpentMeatCooked", new PrefabDict(865616331, 8) },
+                {"SerpentStew", new PrefabDict(-1781955618, 10) },
+                {"Turnip", new PrefabDict(-1615314128, 2) },
+                {"TurnipStew", new PrefabDict(131796573, 2) }
             };
         }
 
@@ -429,22 +448,22 @@ namespace ValheimHack223
 
         public static void ActivateInvincibility() {
             //TODO
-            var timer = new System.Windows.Forms.Timer();
+            /*var timer = new System.Windows.Forms.Timer();
 
 
             timer.Interval = 1000; //Interval of every second
             timer.Tick += EventTimer();
-            timer.Start();
+            timer.Start();*/
         }
 
-        public static System.EventHandler EventTimer() {
+       /* public static System.EventHandler EventTimer() {
 
             //TODO
             AlwaysHeal();
             ChangeHairColour();
             System.EventHandler env;
             return env;
-        }
+        }*/
 
         public static void ChangeHairColour()
         {

@@ -1,21 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using UnityEngine;
 using System.Threading;
-using UnityEngine.Experimental.Rendering;
 
 namespace ValheimHack223
 {
     public partial class Form1 : Form
     {
-        private static System.Timers.Timer aTimer;
         public Form1()
         {
             InitializeComponent();
@@ -120,9 +111,10 @@ namespace ValheimHack223
             SpawnSystem.KillZombies();
         }
 
+        //Spawn zombies
         private void button8_Click(object sender, EventArgs e)
         {
-            SpawnSystem.Start();
+            SpawnSystem.Start(1);
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -163,10 +155,18 @@ namespace ValheimHack223
 
         }
 
+        //All players in game?
         private void CMDStartgame_Click(object sender, EventArgs e)
         {
             GameFunctions.SpawnArena();
-            GameFunctions.StartGame();
+            SelectDifficulty();
+        }
+
+        public void SelectDifficulty()
+        {
+            button14.Show();
+            button15.Show();
+            button16.Show();
         }
 
         private void CBXItems_SelectedIndexChanged(object sender, EventArgs e)
@@ -177,6 +177,39 @@ namespace ValheimHack223
         private void CMDBuy_Click(object sender, EventArgs e)
         {
             GameFunctions.BuyItem(CBXItems.Text);
+        }
+
+        //Easy button
+        private void button14_Click(object sender, EventArgs e)
+        {
+            button14.Hide();
+            button15.Hide();
+            button16.Hide();
+
+            //Set difficulty multiplier to 1
+            GameFunctions.StartGame(1);
+        }
+
+        //Medium button
+        private void button15_Click(object sender, EventArgs e)
+        {
+            button14.Hide();
+            button15.Hide();
+            button16.Hide();
+
+            //Set difficulty multiplier to 2
+            GameFunctions.StartGame(2);
+        }
+
+        //Hard button
+        private void button16_Click(object sender, EventArgs e)
+        {
+            button14.Hide();
+            button15.Hide();
+            button16.Hide();
+
+            //Set difficulty multiplier to 3
+            GameFunctions.StartGame(3);
         }
     }
 }
