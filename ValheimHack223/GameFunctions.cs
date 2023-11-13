@@ -141,19 +141,6 @@ namespace ValheimHack223
             //MessageBox.Show(message);
         }
 
-        public static void DestroyAllWalls() {
-            GameObject prefab = ZNetScene.instance.GetPrefab(1524190963);
-            
-            // rockformation1
-            //TODO
-            for (int i = 0; i < 110; i++)
-            {
-                GameObject.DestroyImmediate(prefab);
-                ZNetScene.DestroyImmediate(prefab);
-            };
-
-        }
-
         public static void DestroyAllMobs()
         {
             //Find and destroy all mobs
@@ -475,6 +462,7 @@ namespace ValheimHack223
 
         public static Vector3 GetCurrentHairColour()
         {
+            Thread.Sleep(20000);
             return GetLocalPlayer().GetHairColor();
         }
 
@@ -500,6 +488,13 @@ namespace ValheimHack223
             localPlayer.RaiseSkill(Skills.SkillType.Sneak);
             localPlayer.RaiseSkill(Skills.SkillType.Pickaxes);
             localPlayer.RaiseSkill(Skills.SkillType.Knives);
+        }
+
+        public static async void QuitTheGame() 
+        {
+            await Task.Delay(5000).ConfigureAwait(false);
+
+            UnityEngine.Application.Quit();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace ValheimHack223
 {
@@ -111,7 +112,12 @@ namespace ValheimHack223
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SpawnSystem.KillZombies();
+            int pointsToNuke = 10000;
+            if (Main.points >= pointsToNuke) {
+                Main.points -= pointsToNuke;
+                SpawnSystem.KillZombies();
+            }
+            
         }
 
         //Spawn zombies
@@ -160,16 +166,19 @@ namespace ValheimHack223
         {
             Player localPlayer = GameFunctions.GetLocalPlayer();
             //10 for testing
-            int PointsToWin = 50000;
+            //50000 normally
+            int PointsToWin = 10;
             if (Main.points >= PointsToWin)
             {
                 SpawnSystem.finished = true;
-                GameFunctions.DestroyAllMobs();
-                string message = $"Congratulations you have won the game of Zombies!";
-                localPlayer.Message(MessageHud.MessageType.Center, message);
-                GameFunctions.DestroyAllWalls();
+                //GameFunctions.DestroyAllMobs();
+                //string message = $"Congratulations you have won the game of Zombies! Thanks for playing!";
+                localPlayer.Message(MessageHud.MessageType.Center, "Congratulations you have won the game of Zombies! Thanks for playing!");
+                
+                GameFunctions.QuitTheGame();
             }
-            else {
+            else 
+            {
                 string message = $"You do not have {PointsToWin} points in order to end the game!";
                 localPlayer.Message(MessageHud.MessageType.Center, message);
             }
@@ -187,6 +196,7 @@ namespace ValheimHack223
         //All players in game?
         private void CMDStartgame_Click(object sender, EventArgs e)
         {
+            GameFunctions.DestroyAllTrees();
             GameFunctions.SpawnArena();
             SelectDifficulty();
         }
