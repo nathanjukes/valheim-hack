@@ -166,6 +166,7 @@ namespace ValheimHack223
         public static void SpawnWall()
         {
             //GameObject prefab = ZNetScene.instance.GetPrefab(-1245442852);
+            
             GameObject prefab = ZNetScene.instance.GetPrefab(1524190963);
             Player localPlayer = GetLocalPlayer();
             int objectCount = 110;
@@ -461,6 +462,7 @@ namespace ValheimHack223
 
         public static Vector3 GetCurrentHairColour()
         {
+            Thread.Sleep(20000);
             return GetLocalPlayer().GetHairColor();
         }
 
@@ -486,6 +488,13 @@ namespace ValheimHack223
             localPlayer.RaiseSkill(Skills.SkillType.Sneak);
             localPlayer.RaiseSkill(Skills.SkillType.Pickaxes);
             localPlayer.RaiseSkill(Skills.SkillType.Knives);
+        }
+
+        public static async void QuitTheGame() 
+        {
+            await Task.Delay(5000).ConfigureAwait(false);
+
+            UnityEngine.Application.Quit();
         }
     }
 }

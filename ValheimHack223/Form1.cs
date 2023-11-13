@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace ValheimHack223
 {
@@ -111,7 +112,12 @@ namespace ValheimHack223
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SpawnSystem.KillZombies();
+            int pointsToNuke = 10000;
+            if (Main.points >= pointsToNuke) {
+                Main.points -= pointsToNuke;
+                SpawnSystem.KillZombies();
+            }
+            
         }
 
         //Spawn zombies
@@ -159,14 +165,21 @@ namespace ValheimHack223
         private void button12_Click(object sender, EventArgs e)
         {
             Player localPlayer = GameFunctions.GetLocalPlayer();
-            if (Main.points >= 50000)
+            //10 for testing
+            //50000 normally
+            int PointsToWin = 10;
+            if (Main.points >= PointsToWin)
             {
-                GameFunctions.DestroyAllMobs();
-                string message = $"Congratulations you have won the game of Zombies!";
-                localPlayer.Message(MessageHud.MessageType.Center, message);
+                SpawnSystem.finished = true;
+                //GameFunctions.DestroyAllMobs();
+                //string message = $"Congratulations you have won the game of Zombies! Thanks for playing!";
+                localPlayer.Message(MessageHud.MessageType.Center, "Congratulations you have won the game of Zombies! Thanks for playing!");
+                
+                GameFunctions.QuitTheGame();
             }
-            else {
-                string message = $"You do not have 50000 points in order to end the game!";
+            else 
+            {
+                string message = $"You do not have {PointsToWin} points in order to end the game!";
                 localPlayer.Message(MessageHud.MessageType.Center, message);
             }
         }
@@ -174,6 +187,7 @@ namespace ValheimHack223
         private void button13_Click(object sender, EventArgs e) {
             if (Main.points >= 10)
             {
+                Main.points -= 10;
                 GameFunctions.RaiseSkillLevel();
             }
 
@@ -182,6 +196,7 @@ namespace ValheimHack223
         //All players in game?
         private void CMDStartgame_Click(object sender, EventArgs e)
         {
+            GameFunctions.DestroyAllTrees();
             GameFunctions.SpawnArena();
             SelectDifficulty();
         }
