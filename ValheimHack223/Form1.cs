@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using UnityEngine;
 using System.Threading.Tasks;
-using System.Threading;
 
 namespace ValheimHack223
 {
@@ -171,8 +170,6 @@ namespace ValheimHack223
             if (Main.points >= PointsToWin)
             {
                 SpawnSystem.finished = true;
-                //GameFunctions.DestroyAllMobs();
-                //string message = $"Congratulations you have won the game of Zombies! Thanks for playing!";
                 localPlayer.Message(MessageHud.MessageType.Center, "Congratulations you have won the game of Zombies! Thanks for playing!");
                 
                 GameFunctions.QuitTheGame();

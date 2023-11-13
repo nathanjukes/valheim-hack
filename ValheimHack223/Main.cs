@@ -1,12 +1,4 @@
-﻿using System;
-using UnityEngine;
-using System.Runtime.InteropServices;
-using System.Threading;
-using UnityEngine.Windows;
-using System.Windows.Forms;
-using static UnityEngine.GraphicsBuffer;
-using System.Reflection;
-using System.Runtime.Remoting.Messaging;
+﻿using UnityEngine;
 
 namespace ValheimHack223
 {
@@ -16,8 +8,7 @@ namespace ValheimHack223
         public static int points = 0;
         private static bool mapLoaded = false;
 
-        private static bool alive = true;
-        //private static int death;
+        public static bool alive = true;
 
         private void Start()
         {
@@ -30,7 +21,7 @@ namespace ValheimHack223
         public void Update()
         {
             Player localPlayer = Player.m_localPlayer;
-            if (GameFunctions.glowStickMode ==true)
+            if (GameFunctions.glowStickMode == true)
                 GameFunctions.ChangeSkinColour();
             // Add points for a player attacking a zombie
             if (localPlayer.InAttack() && localPlayer.GetTimeSinceLastAttack() > 0.3)// && localPlayer.GetTimeSinceLastAttack() > 0.1f)
@@ -40,7 +31,7 @@ namespace ValheimHack223
 
             if (SpawnSystem.started)
             {
-                if (SpawnSystem.zombieCount == 0 && SpawnSystem.round != 0 && SpawnSystem.finished != true)
+                if (SpawnSystem.zombieSpawnCount == 0 && SpawnSystem.round != 0 && SpawnSystem.finished != true)
                 {
                     // Add time between rounds here
                     GameFunctions.GetLocalPlayer().Message(MessageHud.MessageType.Center, "Next round");
@@ -58,17 +49,6 @@ namespace ValheimHack223
             if (localPlayer.IsDead() && alive)
             {
                 SpawnSystem.GameOver(localPlayer);
-                /*
-                death++;
-
-                if (death == 3)
-                {
-                    string message = "Game Over";
-                    GameFunctions.GetLocalPlayer().Message(MessageHud.MessageType.Center, message);
-                    Menu menu = new Menu();
-                    menu.Logout();
-                }
-                */
                 alive = false;
             }
             if (localPlayer.IsDead() == false)
@@ -81,7 +61,7 @@ namespace ValheimHack223
         {
             //FPS Counter
             GUI.color = Color.yellow;
-            GUI.Label(new Rect(300f, 0f, 600f, 40f), "Score: " + points + " Zombies: " + SpawnSystem.zombieCount + " Round: " + SpawnSystem.round + " Difficulty Multiplier: " + SpawnSystem.difficultyMultiplier); // This re-renders when points changes btw
+            GUI.Label(new Rect(300f, 0f, 600f, 40f), "Score: " + points + " Zombies: " + SpawnSystem.zombieSpawnCount + " Round: " + SpawnSystem.round + " Difficulty Multiplier: " + SpawnSystem.difficultyMultiplier); // This re-renders when points changes btw
         }
     }
 }
