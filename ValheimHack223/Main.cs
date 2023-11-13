@@ -16,6 +16,9 @@ namespace ValheimHack223
         public static int points = 0;
         private static bool mapLoaded = false;
 
+        private static bool alive = true;
+        //private static int death;
+
         private void Start()
         {
             GameFunctions.generateDict();
@@ -50,6 +53,27 @@ namespace ValheimHack223
             if (localPlayer.gameObject.activeSelf && !mapLoaded)
             {
                 mapLoaded = true;
+            }
+
+            if (localPlayer.IsDead() && alive)
+            {
+                SpawnSystem.GameOver(localPlayer);
+                /*
+                death++;
+
+                if (death == 3)
+                {
+                    string message = "Game Over";
+                    GameFunctions.GetLocalPlayer().Message(MessageHud.MessageType.Center, message);
+                    Menu menu = new Menu();
+                    menu.Logout();
+                }
+                */
+                alive = false;
+            }
+            if (localPlayer.IsDead() == false)
+            {
+                alive = true;
             }
         }
 
