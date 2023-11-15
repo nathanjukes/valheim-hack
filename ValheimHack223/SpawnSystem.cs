@@ -12,19 +12,16 @@ namespace ValheimHack223
         public static int zombieSpawnCount;
 
         public static int difficultyMultiplier;
-
         public static bool started = false;
-
         public static bool finished = false;
 
-        //Will re-add players deaths after re-adding spawning
         public static Dictionary<Player, int> playerDeaths = new Dictionary<Player, int>();
 
+        //Enemy stats variables
         public static List<Character> enemyList = new List<Character>();
-
         private static int currentLevel = 1;
-        private static float initialSpeed = 5f;
-        private static float initialHealth = 1f;
+        private static float initialSpeed = 0.5f;
+        private static float initialHealth = 0.5f;
 
         //[boar, gray dwarf, gd elite, gd shaman, stoneGolem, troll]
         private static int[] prefabMobsForest = { -1670867714, -137741679, -1374218359, 762782418, 1814827443, 425751481 };
@@ -95,25 +92,28 @@ namespace ValheimHack223
             //List<int[]> roundMobId = new List<int[]>();
 
             //Decide which enemy to spawn
-            int spawner = round % 4;
+            //int spawner = round % 4;
             //roundMobId.Add(roundMobs[spawner]);
-            int limit = (round / 4) % 21;
+            //int limit = (round / 4) % 21;
 
-            //Increase stats based on round
-            initialHealth = initialHealth + 1;
-            initialSpeed = initialSpeed + 1;
-            currentLevel = round;
+            //Increase stats based on whether three rounds have passed
+            //Done so to prevent stats from scaling too quickly
+            var isThirdRound = round % 3 == 0 ? true : false;
+
+            initialHealth = isThirdRound ? initialHealth + 0.5f : initialHealth;
+            initialSpeed = isThirdRound ? initialSpeed + 0.1f : initialSpeed;
+            currentLevel = isThirdRound ? currentLevel + 1 : currentLevel;
 
             for (int i = 0; i < zombieSpawnCount; i++)
             {
                 //GameObject prefab = ZNetScene.instance.GetPrefab(roundMobId[0][limit]);
                 GameObject prefab = ZNetScene.instance.GetPrefab(prefabMobsUndead[0]);
 
-                Character enemy = Instantiate(prefab, localPlayer.transform.position + localPlayer.transform.forward * 10.0f + Vector3.forward + (Random.insideUnitSphere * 0.5f), Quaternion.identity).GetComponent<Character>();
+                Character enemy = Instantiate(prefab, localPlayer.transform.position + localPlayer.transform.forward * 20.0f + Vector3.forward + (Random.insideUnitSphere * 0.5f), Quaternion.identity).GetComponent<Character>();
                 
                 //Update enemy stats
                 enemy.SetLevel(currentLevel);
-                enemy.m_health = initialHealth;
+                enemy.SetHealth(initialHealth);
                 enemy.m_speed = initialSpeed;
 
                 enemyList.Add(enemy);
@@ -150,12 +150,11 @@ namespace ValheimHack223
 
         public static void GameOver(Player localPlayer)
         {
-            // check for if player is dead in some other function then call this function to potentially end the game for that player 
-            // Player player = GameFunctions.GetLocalPlayer();
-            // player.IsDead();
+            //Check for if player is dead in some other function then call this function to potentially end the game for that player 
 
             int death = playerDeaths[localPlayer];
             death++;
+
             if (death == 3)
             {
                 string message = "Game Over";
@@ -163,6 +162,7 @@ namespace ValheimHack223
                 Menu menu = new Menu();
                 menu.Logout();
             }
+
             playerDeaths[localPlayer] = death;
         }
     }

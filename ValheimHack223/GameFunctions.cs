@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -13,53 +11,11 @@ namespace ValheimHack223
     internal class GameFunctions
     {
         private static Transform arenaCentre;
+        private const string ZOMBIES_MAP_NAME = "Zombies Map";
+        private const string ZOMBIES_MAP_SEED = "b3s3sLJU2J";
+
         public static bool glowStickMode = false;
-        private const String ZOMBIES_MAP_NAME = "Zombies Map";
-        private const String ZOMBIES_MAP_SEED = "b3s3sLJU2J";
         public static Dictionary<string, PrefabDict> itemShop;
-
-        public static void SpawnMobs()
-        {
-            // -137741679  Goblin 
-            // 505464631   Drauger 
-            // 68955605    Wraith
-            // 1321415847    Valkyrie
-            // -1035090735    Skeleton
-            // 1126707611    Greydwarf
-            // -408509179    Dragon
-            // 1814827443    StoneGolem
-            // 425751481    Troll
-            // -315180887    GoblinShaman
-            // 1671717323    Serpent
-
-            //amount varies by round 
-            int amount = 4;
-
-            try
-            {
-                Player localPlayer = GetLocalPlayer();
-                //round 1 consists of simple mobs and the later rounds are more difficult ones
-                //[[golin, troll], [Drauger, Wraith, Valkyrie, Skeleton, Greydwarf, Dragon, StoneGolem]]
-                //GameObject[] prefabMobsR1 = { -137741679, 425751481 };
-                //GameObject[] prefabMobsR2 = { 505464631, 68955605, 1321415847, -1035090735, 1126707611, -408509179, 1814827443 };
-                GameObject prefab = ZNetScene.instance.GetPrefab(-1035090735);
-                
-                for (int i = 0; i < amount; i++)
-                {
-                    Character enemy = UnityEngine.Object.Instantiate<GameObject>(prefab, localPlayer.transform.position + localPlayer.transform.forward * 10.0f + Vector3.forward + (UnityEngine.Random.insideUnitSphere * 0.5f), Quaternion.identity).GetComponent<Character>();
-                    enemy.SetHealth(10f);
-                }
-
-                string message = $"Spawned x{amount}";
-                localPlayer.Message(MessageHud.MessageType.Center, message);
-
-            }
-            catch
-            {
-
-            }
-        }
-
 
         //  -1993569970 birch2
         //  735284842	Oak1
@@ -70,16 +26,18 @@ namespace ValheimHack223
         {
             Player localPlayer = GetLocalPlayer();
             Vector3 position;
+
             int[] prefabs = { -1993569970, 735284842, -1183306829, 13326225, -2111136205 };
+           
             Random rnd = new Random();
             int index;
 
             try
             {
-                //set arena centre
+                //Set arena centre
                 arenaCentre = localPlayer.transform;
 
-                //skip to morning
+                //Skip to morning
                 UnityEngine.Object.FindObjectOfType<EnvMan>().SkipToMorning();
 
                 DestroyAllTrees();
@@ -129,16 +87,11 @@ namespace ValheimHack223
         {
             //Find and destroy all trees
             TreeBase[] trees = Game.FindObjectsOfType(typeof(TreeBase)) as TreeBase[];
-            int amount = trees.Length;
 
             foreach (var s in trees)
             {
                 GameObject.DestroyImmediate(s.gameObject);
             }
-
-            //Inform the player of the number of trees destroyed
-            //String message = $"x{amount} trees destroyed";
-            //MessageBox.Show(message);
         }
 
         public static void DestroyAllMobs()
@@ -157,29 +110,23 @@ namespace ValheimHack223
                     ++amount;
                 }
             }
-
-            //Inform the player of the number of mobs destroyed
-            //String message = $"x{amount} mobs destroyed";
-            //MessageBox.Show(message);
         }
 
         public static void SpawnWall()
-        {
-            //GameObject prefab = ZNetScene.instance.GetPrefab(-1245442852);
-            
+        {   
             GameObject prefab = ZNetScene.instance.GetPrefab(1524190963);
             Player localPlayer = GetLocalPlayer();
-            int objectCount = 110;
             Vector3 spawnPosition;
             var spawnPositions = new List<Vector3>();
             float angle;
+            int objectCount = 110;
 
             for (int i = 0; i < objectCount; i++)
             {
-                // Calculate the angle between objects
+                //Calculate the angle between objects
                 angle = i * 360.0f / objectCount;
 
-                //calculate the position to spawn the prefab
+                //Calculate the position to spawn the prefab
                 spawnPosition = localPlayer.transform.position + Quaternion.Euler(0, angle, 0) * localPlayer.transform.forward * 100.0f + Quaternion.Euler(0, angle, 0) * localPlayer.transform.up * 25.0f;
 
                 float y;
@@ -191,7 +138,7 @@ namespace ValheimHack223
 
             for (int i = 0; i < objectCount; i++)
             {
-                // Instantiate the prefab at the calculated position
+                //Instantiate the prefab at the calculated position
                 UnityEngine.Object.Instantiate<GameObject>(prefab, spawnPositions[i], Quaternion.identity);
             }
         }
@@ -214,7 +161,6 @@ namespace ValheimHack223
             return position;
         }
 
-
         public static Player GetLocalPlayer()
         {
             return Player.m_localPlayer;
@@ -224,18 +170,16 @@ namespace ValheimHack223
         {
             bool updatePoints = false;
 
-            // Find enemies taking damage, if exists
+            //Find enemies taking damage, if exists
             foreach (Character c in Character.GetAllCharacters())
             {
-                // check if monster and not player + in range
-                if (InRange(c, localPlayer, 4f) && !c.IsPlayer()) // This range may need to change
+                //Check if monster and not player + in range
+                if (InRange(c, localPlayer, 4f) && !c.IsPlayer())
                 {
                     if (c.m_onDamaged != null)
                     {
                         updatePoints = true;
                     }
-
-                    // Could also do a death points here but for now, damage works fine
 
                     if (updatePoints)
                     {
@@ -265,8 +209,7 @@ namespace ValheimHack223
 
         public static void StartMap()
         {
-            // Called in homescreen, starts map and server
-
+            //Called in homescreen, starts map and server
             DeleteMapIfExists();
 
             CreateMap();
@@ -299,14 +242,18 @@ namespace ValheimHack223
             foreach (Player i in players)
             {
                 ClearInventory(i);
+
                 tempPrefab = ZNetScene.instance.GetPrefab(itemShop["ShieldWood"].hash);
-                UnityEngine.Object.Instantiate<GameObject>(tempPrefab, i.transform.position, Quaternion.identity);
-                tempPrefab = ZNetScene.instance.GetPrefab(itemShop["Club"].hash);
-                UnityEngine.Object.Instantiate<GameObject>(tempPrefab, i.transform.position, Quaternion.identity);
-                tempPrefab = ZNetScene.instance.GetPrefab(itemShop["ArmorRagsChest"].hash);
-                UnityEngine.Object.Instantiate<GameObject>(tempPrefab, i.transform.position, Quaternion.identity);
+                UnityEngine.Object.Instantiate(tempPrefab, i.transform.position, Quaternion.identity);
+                
+                tempPrefab = ZNetScene.instance.GetPrefab(itemShop["AxeIron"].hash);
+                UnityEngine.Object.Instantiate(tempPrefab, i.transform.position, Quaternion.identity);
+                
+                tempPrefab = ZNetScene.instance.GetPrefab(itemShop["ArmorIronChest"].hash);
+                UnityEngine.Object.Instantiate(tempPrefab, i.transform.position, Quaternion.identity);
+                
                 tempPrefab = ZNetScene.instance.GetPrefab(itemShop["ArmorRagsLegs"].hash);
-                UnityEngine.Object.Instantiate<GameObject>(tempPrefab, i.transform.position, Quaternion.identity);
+                UnityEngine.Object.Instantiate(tempPrefab, i.transform.position, Quaternion.identity);
             }
         }
 
@@ -316,12 +263,17 @@ namespace ValheimHack223
             Player localPlayer = GetLocalPlayer();
             GameObject tempPrefab;
             Inventory inventory = localPlayer.GetInventory();
-            if (Main.points >= itemShop[itemName].cost) {
+
+            if (Main.points >= itemShop[itemName].cost) 
+            {
                 Main.points -= itemShop[itemName].cost;
                 tempPrefab = ZNetScene.instance.GetPrefab(itemShop[itemName].hash);
-                if (itemName.Contains("Arrow")) {
+
+                if (itemName.Contains("Arrow")) 
+                {
                     amount = 20;
                 }
+
                 inventory.AddItem(tempPrefab, amount);
             }
             else
@@ -447,37 +399,16 @@ namespace ValheimHack223
                 GetLocalPlayer().SetHairColor(tempVec);
         }
 
-        public static void ChangeHairColour()
+        public static void AlwaysHeal() 
         {
-            Random rnd = new Random();
-            int rint = rnd.Next(0, 1);
-
-            int r = rnd.Next(0, 10);
-            int g = rnd.Next(0, 10);
-            int b = rnd.Next(0, 10);
-
-            Vector3 tempVec = new Vector3(r, g, b);
-            GetLocalPlayer().SetHairColor(tempVec);
-        }
-
-        public static Vector3 GetCurrentHairColour()
-        {
-            Thread.Sleep(20000);
-            return GetLocalPlayer().GetHairColor();
-        }
-
-        public static void SetOldHairColour(Vector3 oldHairColour)
-        {
-            GetLocalPlayer().SetHairColor(oldHairColour);
-        }
-
-        public static void AlwaysHeal() {
             Player localPlayer = GetLocalPlayer();
             localPlayer.Heal(20);
         }
 
-        public static void RaiseSkillLevel() {
-            Player localPlayer = GameFunctions.GetLocalPlayer();
+        public static void RaiseSkillLevel() 
+        {
+            Player localPlayer = GetLocalPlayer();
+            
             localPlayer.RaiseSkill(Skills.SkillType.Axes);
             localPlayer.RaiseSkill(Skills.SkillType.BloodMagic);
             localPlayer.RaiseSkill(Skills.SkillType.Crossbows);
