@@ -24,6 +24,7 @@ namespace ValheimHack223
         private void DisposeOfInjector_Click(object sender, EventArgs e)
         {
             Loader.Dispose();
+            label6.Show();
         }
 
         //Map Management
@@ -174,11 +175,6 @@ namespace ValheimHack223
 
             //Set difficulty multiplier to 3
             GameFunctions.StartGame(3);
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
