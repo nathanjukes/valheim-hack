@@ -46,6 +46,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -207,7 +208,7 @@
             // 
             // CMDBuy
             // 
-            this.CMDBuy.Location = new System.Drawing.Point(205, 271);
+            this.CMDBuy.Location = new System.Drawing.Point(282, 271);
             this.CMDBuy.Margin = new System.Windows.Forms.Padding(4);
             this.CMDBuy.Name = "CMDBuy";
             this.CMDBuy.Size = new System.Drawing.Size(100, 28);
@@ -219,10 +220,11 @@
             // LBLcost
             // 
             this.LBLcost.AutoSize = true;
-            this.LBLcost.Location = new System.Drawing.Point(624, 475);
+            this.LBLcost.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.LBLcost.Location = new System.Drawing.Point(239, 267);
             this.LBLcost.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LBLcost.Name = "LBLcost";
-            this.LBLcost.Size = new System.Drawing.Size(0, 16);
+            this.LBLcost.Size = new System.Drawing.Size(0, 25);
             this.LBLcost.TabIndex = 14;
             // 
             // button11
@@ -257,7 +259,7 @@
             // 
             // button14
             // 
-            this.button14.Location = new System.Drawing.Point(143, 153);
+            this.button14.Location = new System.Drawing.Point(121, 155);
             this.button14.Margin = new System.Windows.Forms.Padding(4);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(295, 171);
@@ -275,8 +277,8 @@
             this.button15.Size = new System.Drawing.Size(295, 171);
             this.button15.TabIndex = 19;
             this.button15.Text = "Medium";
-            this.button15.UseVisualStyleBackColor = true;
             this.button15.Hide();
+            this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.MediumButton_Click);
             // 
             // button16
@@ -287,8 +289,8 @@
             this.button16.Size = new System.Drawing.Size(295, 171);
             this.button16.TabIndex = 20;
             this.button16.Text = "Hard";
-            this.button16.UseVisualStyleBackColor = true;
             this.button16.Hide();
+            this.button16.UseVisualStyleBackColor = true;
             this.button16.Click += new System.EventHandler(this.HardButton_Click);
             // 
             // label1
@@ -330,11 +332,23 @@
             this.label4.TabIndex = 23;
             this.label4.Text = "Dispose of injection";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label5.Location = new System.Drawing.Point(220, 212);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 25);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Cost";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1333, 559);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button16);
@@ -382,5 +396,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

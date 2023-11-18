@@ -12,6 +12,7 @@ namespace ValheimHack223
         public Form1()
         {
             InitializeComponent();
+           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -44,13 +45,17 @@ namespace ValheimHack223
 
         private void CMDBuy_Click(object sender, EventArgs e)
         {
+            int cost = GameFunctions.Update_Cost_Label(CBXItems.Text);
+            this.LBLcost.Text = cost.ToString();
             GameFunctions.BuyItem(CBXItems.Text);
         }
 
         private void NukeButton_Click(object sender, EventArgs e)
         {
-            int pointsToNuke = 10000;
-
+            //10000
+            //10 for testing
+            int pointsToNuke = 10;
+            this.LBLcost.Text = pointsToNuke.ToString();
             if (Main.points >= pointsToNuke) 
             {
                 Main.points -= pointsToNuke;
@@ -64,10 +69,12 @@ namespace ValheimHack223
             //10 for testing
             //int pointsToWin = 50000;
             int pointsToWin = 10;
-
+            this.LBLcost.Text = pointsToWin.ToString();
             if (Main.points >= pointsToWin)
             {
+                Main.points -= pointsToWin;
                 SpawnSystem.finished = true;
+                GameFunctions.DestroyAllMobs();
                 localPlayer.Message(MessageHud.MessageType.Center, "Congratulations you have won the game of Zombies! Thanks for playing!");
                 
                 GameFunctions.QuitTheGame();
@@ -81,9 +88,11 @@ namespace ValheimHack223
 
         private void SkillLevel_Click(object sender, EventArgs e) 
         {
-            if (Main.points >= 10)
+            int pointsToIncreaseSkill = 10;
+            this.LBLcost.Text = pointsToIncreaseSkill.ToString();
+            if (Main.points >= pointsToIncreaseSkill)
             {
-                Main.points -= 10;
+                Main.points -= pointsToIncreaseSkill;
                 GameFunctions.RaiseSkillLevel();
             }
         }
@@ -92,9 +101,16 @@ namespace ValheimHack223
         {
             counter = 0;
             exitFlag = false;
+            int pointsForInvincibility = 10;
 
-            GameFunctions.GetLocalPlayer().Message(MessageHud.MessageType.Center, "Invincibility has started!");
-            InvincibilityCycle();
+            this.LBLcost.Text = pointsForInvincibility.ToString();
+            if (Main.points >= pointsForInvincibility) 
+            {
+                Main.points -= pointsForInvincibility;
+                GameFunctions.GetLocalPlayer().Message(MessageHud.MessageType.Center, "Invincibility has started!");
+                InvincibilityCycle();
+            }
+            
         }
 
         public async void InvincibilityCycle()
@@ -158,6 +174,11 @@ namespace ValheimHack223
 
             //Set difficulty multiplier to 3
             GameFunctions.StartGame(3);
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

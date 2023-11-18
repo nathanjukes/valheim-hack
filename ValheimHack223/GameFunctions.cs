@@ -292,7 +292,7 @@ namespace ValheimHack223
             targetPlayer.Message(MessageHud.MessageType.Center, message);
         }
 
-        public static void generateDict()
+        public static Dictionary<string, PrefabDict> generateDict()
         {
             itemShop = new Dictionary<string, PrefabDict>{
                 {"ArmorBronzeChest", new PrefabDict(-524840022, 2)},
@@ -308,10 +308,10 @@ namespace ValheimHack223
                 {"ArmorTrollLeatherLegs", new PrefabDict(-560834156, 3)},
                 {"ArmorWolfChest", new PrefabDict(-914594978, 3)},
                 {"ArmorWolfLegs", new PrefabDict(-1695215220, 3)},
-                {"AtgeirBlackmetal", new PrefabDict(275694258, 4) },
+                {"AtgeirBlackmetal", new PrefabDict(275694258, 10) },
                 {"AtgeirBronze", new PrefabDict(-971799304, 2)},
                 {"AtgeirIron", new PrefabDict(-1697777810, 3)},
-                {"AxeBlackMetal", new PrefabDict(1694548656, 4)},
+                {"AxeBlackMetal", new PrefabDict(1694548656, 10)},
                 {"AxeBronze", new PrefabDict(-533689078, 2)},
                 {"AxeFlint", new PrefabDict(-1468314591, 1)},
                 {"AxeIron", new PrefabDict(1790496580, 3)},
@@ -376,10 +376,21 @@ namespace ValheimHack223
                 {"QueensJam", new PrefabDict(-474798661, 1) },
                 {"Sausages", new PrefabDict(1580132118, 5) },
                 {"SerpentMeatCooked", new PrefabDict(865616331, 8) },
-                {"SerpentStew", new PrefabDict(-1781955618, 10) },
+                {"SerpentStew", new PrefabDict(-1781955618, 1) },
                 {"Turnip", new PrefabDict(-1615314128, 2) },
                 {"TurnipStew", new PrefabDict(131796573, 2) }
             };
+
+            return itemShop;
+        }
+
+
+        public static int Update_Cost_Label(string itemName) {
+            Dictionary<string, PrefabDict> itemShop = generateDict();
+            PrefabDict prefabDictOfItem = itemShop[itemName];
+
+            int cost = prefabDictOfItem.cost;
+            return cost;
         }
 
         public static void ChangeSkinColour()

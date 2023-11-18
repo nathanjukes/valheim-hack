@@ -12,7 +12,8 @@ namespace ValheimHack223
 
         private void Start()
         {
-            GameFunctions.generateDict();
+            
+            object itemShop = GameFunctions.generateDict();
             Form1 r = new Form1();
             r.Show();
             points += 100;
