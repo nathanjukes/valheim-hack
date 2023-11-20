@@ -53,6 +53,7 @@ namespace ValheimHack223
 
         private void NukeButton_Click(object sender, EventArgs e)
         {
+            Player localPlayer = GameFunctions.GetLocalPlayer();
             //10 for testing
             int pointsToNuke = 30;
             this.LBLcost.Text = pointsToNuke.ToString();
@@ -60,6 +61,11 @@ namespace ValheimHack223
             {
                 Main.points -= pointsToNuke;
                 SpawnSystem.KillZombies();
+            }
+            else
+            {
+                string message = $"You do not have {pointsToNuke} points in order to nuke!";
+                localPlayer.Message(MessageHud.MessageType.Center, message);
             }
         }
 
@@ -87,6 +93,7 @@ namespace ValheimHack223
 
         private void SkillLevel_Click(object sender, EventArgs e) 
         {
+            Player localPlayer = GameFunctions.GetLocalPlayer();
             int pointsToIncreaseSkill = 10;
             this.LBLcost.Text = pointsToIncreaseSkill.ToString();
             if (Main.points >= pointsToIncreaseSkill)
@@ -94,10 +101,16 @@ namespace ValheimHack223
                 Main.points -= pointsToIncreaseSkill;
                 GameFunctions.RaiseSkillLevel();
             }
+            else
+            {
+                string message = $"You do not have {pointsToIncreaseSkill} points in order to increase your skill level!";
+                localPlayer.Message(MessageHud.MessageType.Center, message);
+            }
         }
 
         public void InvincibilityButton_Click(object sender, EventArgs e)
         {
+            Player localPlayer = GameFunctions.GetLocalPlayer();
             counter = 0;
             exitFlag = false;
             int pointsForInvincibility = 10;
@@ -109,7 +122,11 @@ namespace ValheimHack223
                 GameFunctions.GetLocalPlayer().Message(MessageHud.MessageType.Center, "Invincibility has started!");
                 InvincibilityCycle();
             }
-            
+            else
+            {
+                string message = $"You do not have {pointsForInvincibility} points in order to become invincible!";
+                localPlayer.Message(MessageHud.MessageType.Center, message);
+            }
         }
 
         public async void InvincibilityCycle()
