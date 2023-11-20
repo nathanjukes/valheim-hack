@@ -53,9 +53,8 @@ namespace ValheimHack223
 
         private void NukeButton_Click(object sender, EventArgs e)
         {
-            //10000
             //10 for testing
-            int pointsToNuke = 10;
+            int pointsToNuke = 30;
             this.LBLcost.Text = pointsToNuke.ToString();
             if (Main.points >= pointsToNuke) 
             {
@@ -68,8 +67,7 @@ namespace ValheimHack223
         {
             Player localPlayer = GameFunctions.GetLocalPlayer();
             //10 for testing
-            //int pointsToWin = 50000;
-            int pointsToWin = 10;
+            int pointsToWin = 500;
             this.LBLcost.Text = pointsToWin.ToString();
             if (Main.points >= pointsToWin)
             {
